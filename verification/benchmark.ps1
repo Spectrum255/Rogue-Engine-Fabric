@@ -9,7 +9,7 @@ $runDir = Join-Path $repo 'build/benchmark'
 $levelName = 'benchmark-' + [Guid]::NewGuid().ToString('N')
 $rconPassword = [Guid]::NewGuid().ToString('N')
 $worldDir = Join-Path $runDir $levelName
-$packDir = Join-Path $worldDir 'datapacks/rogue-benchmark/data/rogue-engine-fabric/rogue-engine-fabric/profile'
+$packDir = Join-Path $worldDir 'datapacks/rogue-benchmark/data/rogueengine/rogueengine/profile'
 New-Item -ItemType Directory -Path $packDir -Force | Out-Null
 @'
 {
@@ -35,7 +35,7 @@ New-Item -ItemType Directory -Path $packDir -Force | Out-Null
   "quarantine_retention_days": 7,
   "fallback_dimension": "minecraft:overworld"
 }
-'@ | Set-Content (Join-Path $worldDir 'datapacks/rogue-benchmark/data/rogue-engine-fabric/engine.json') -Encoding utf8
+'@ | Set-Content (Join-Path $worldDir 'datapacks/rogue-benchmark/data/rogueengine/engine.json') -Encoding utf8
 @'
 {
   "schema_version": 1,
@@ -98,7 +98,7 @@ try {
         $timer = [System.Diagnostics.Stopwatch]::StartNew()
         $roundIds = @()
         for ($i = 0; $i -lt $count; $i++) {
-            $created = Invoke-Rcon 'rogue-engine instance create rogue-engine-fabric:benchmark Benchmark'
+            $created = Invoke-Rcon 'rogueengine instance create rogueengine:benchmark Benchmark'
             if ($created -notmatch 'Created box ([0-9a-f-]{36})') {
                 throw "Benchmark box creation failed: $created"
             }
@@ -107,13 +107,13 @@ try {
         $timer.Stop()
         Write-Output "dimensions=$count createTotalMs=$($timer.ElapsedMilliseconds)"
         foreach ($id in $roundIds) {
-            $archived = Invoke-Rcon "rogue-engine instance archive $id"
+            $archived = Invoke-Rcon "rogueengine instance archive $id"
             if ($archived -notlike "Archived $id") {
                 throw "Benchmark box archive failed: $archived"
             }
         }
     }
-    $null = Invoke-Rcon 'rogue-engine admin stats'
+    $null = Invoke-Rcon 'rogueengine admin stats'
 } finally {
     if (-not $process.HasExited) {
         try { $null = Invoke-Rcon 'stop' } catch { }

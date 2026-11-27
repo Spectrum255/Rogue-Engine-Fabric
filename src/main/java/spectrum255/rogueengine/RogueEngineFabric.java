@@ -16,7 +16,7 @@ import spectrum255.rogueengine.profile.ProfileCatalog;
 import spectrum255.rogueengine.profile.WorldGenTemplateCatalog;
 
 public class RogueEngineFabric implements ModInitializer {
-	public static final String MOD_ID = "rogue-engine-fabric";
+	public static final String MOD_ID = "rogueengine";
 
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.

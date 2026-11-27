@@ -128,7 +128,7 @@ public final class SnapshotCaptureService {
 		if (output.size() > MAX_FILE_BYTES) {
 			throw new IllegalArgumentException("Snapshot file exceeds " + MAX_FILE_BYTES + " bytes");
 		}
-		Path file = worldRoot.resolve("data/rogue-engine-fabric/map-snapshots")
+		Path file = worldRoot.resolve("data/rogueengine/map-snapshots")
 				.resolve(id.getNamespace()).resolve(id.getPath() + ".nbt");
 		AtomicFiles.verifyManagedPath(worldRoot, file);
 		AtomicFiles.writeAtomic(file, output.toByteArray());

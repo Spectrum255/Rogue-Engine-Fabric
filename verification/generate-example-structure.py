@@ -38,7 +38,7 @@ def main() -> None:
     root = b"\x0a\x00\x00" + payload + b"\x00"
 
     repo = Path(__file__).resolve().parents[1]
-    target = repo / "src/main/resources/data/rogue-engine-fabric/structure/example_room.nbt"
+    target = repo / "src/main/resources/data/rogueengine/structure/example_room.nbt"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(gzip.compress(root, mtime=0))
     print(f"Generated {target}")

@@ -34,7 +34,7 @@ class MapSnapshotCatalogTest {
 	@Test
 	void loadsWorldSnapshotAndComputesHash() throws IOException {
 		MapSnapshot snapshot = snapshot();
-		Path file = world.resolve("data/rogue-engine-fabric/map-snapshots/example/room.nbt");
+		Path file = world.resolve("data/rogueengine/map-snapshots/example/room.nbt");
 		Files.createDirectories(file.getParent());
 		NbtIo.writeCompressed(MapSnapshotCodec.write(snapshot, registries()), file);
 		MapSnapshotCatalog catalog = new MapSnapshotCatalog(world, registries(), id -> {

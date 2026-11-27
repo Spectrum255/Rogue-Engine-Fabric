@@ -172,7 +172,7 @@ return Math.max(-1.0F, Math.min(1.0F, Math.min(topDensity, bottomDensity)));
 
 `edgeNoise` 在半径阈值前调制有效边缘：`effectiveRadius = radius + edgeNoise * noiseValue * 0.08`，超过 `1` 返回 `-1`。中心 `20%` 半径内平滑淡出起伏，保证中心高度稳定。
 
-`range()` 返回 `[-1,1]`，`domainAxes()` 返回 `ALL_AXES`，`rewriteChildren` 重写 `noise`。Codec 字段为 `noise`、`boundary`、`settings`。`WorldGenRegistry` 注册 `rogue-engine-fabric:central_island_density`。
+`range()` 返回 `[-1,1]`，`domainAxes()` 返回 `ALL_AXES`，`rewriteChildren` 重写 `noise`。Codec 字段为 `noise`、`boundary`、`settings`。`WorldGenRegistry` 注册 `rogueengine:central_island_density`。
 
 - [ ] **Step 4: 运行密度测试**
 
@@ -225,7 +225,7 @@ Expected: 编译失败。
 - `getBaseHeight/getBaseColumn` 在岛外返回虚空；岛内委托。
 - `createStructures/createReferences/applyBiomeDecoration` 跳过完全岛外区块。
 - `spawnY()` 返回 `centerY + 1`。
-- Codec 字段为 `delegate`、`boundary`、`settings`，注册 `rogue-engine-fabric:central_island`。
+- Codec 字段为 `delegate`、`boundary`、`settings`，注册 `rogueengine:central_island`。
 
 - [ ] **Step 4: 运行生成器测试**
 
@@ -287,10 +287,10 @@ Expected: 全部通过。
 ## Task 5：内置示例、服务端冒烟与文档
 
 **Files:**
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/central_island.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/profile/central_island.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/central_island_layers.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/profile/central_island_layers.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/worldgen_template/central_island.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/profile/central_island.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/worldgen_template/central_island_layers.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/profile/central_island_layers.json`
 - Modify: `verification/server-smoke.ps1`
 - Modify: `docs/worldgen-templates.md`
 - Modify: `README.md`
@@ -305,7 +305,7 @@ Expected: 全部通过。
 
 创建两个浮岛箱庭，验证：
 
-- `Created box` 且 `level_stem_json` 包含 `rogue-engine-fabric:central_island`。
+- `Created box` 且 `level_stem_json` 包含 `rogueengine:central_island`。
 - catalog 中硬边界为 `512`，生成器快照包含岛屿参数。
 - 归档、恢复通过。
 - 自定义分层示例的 `level_stem_json` 包含草方块、泥土和煤矿配置。

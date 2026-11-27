@@ -25,25 +25,25 @@ public final class MapPreviewScreen extends AbstractConfigScreen {
 	private MapPreviewModel model;
 
 	public MapPreviewScreen(Screen parent, DraftState state) {
-		super(Component.translatable("rogue-engine-fabric.config.preview"), parent, state);
+		super(Component.translatable("rogueengine.config.preview"), parent, state);
 	}
 
 	@Override
 	protected void init() {
-		mapId = field(20, 35, 360, "rogue-engine-fabric.config.map_id", "rogue-engine-fabric:example_room");
-		addButton(20, 80, 160, "rogue-engine-fabric.config.source", () -> {
+		mapId = field(20, 35, 360, "rogueengine.config.map_id", "rogueengine:example_room");
+		addButton(20, 80, 160, "rogueengine.config.source", () -> {
 			source = source == Source.SNAPSHOT ? Source.STRUCTURE : Source.SNAPSHOT;
-			setStatus("rogue-engine-fabric.config.selected", source.name().toLowerCase(java.util.Locale.ROOT));
+			setStatus("rogueengine.config.selected", source.name().toLowerCase(java.util.Locale.ROOT));
 		});
-		addButton(200, 80, 160, "rogue-engine-fabric.config.rotation", () -> {
+		addButton(200, 80, 160, "rogueengine.config.rotation", () -> {
 			rotationIndex = (rotationIndex + 1) % ROTATIONS.length;
-			setStatus("rogue-engine-fabric.config.selected", ROTATIONS[rotationIndex].name().toLowerCase(java.util.Locale.ROOT));
+			setStatus("rogueengine.config.selected", ROTATIONS[rotationIndex].name().toLowerCase(java.util.Locale.ROOT));
 		});
-		addButton(20, 110, 160, "rogue-engine-fabric.config.mirror", () -> {
+		addButton(20, 110, 160, "rogueengine.config.mirror", () -> {
 			mirrorIndex = (mirrorIndex + 1) % MIRRORS.length;
-			setStatus("rogue-engine-fabric.config.selected", MIRRORS[mirrorIndex].name().toLowerCase(java.util.Locale.ROOT));
+			setStatus("rogueengine.config.selected", MIRRORS[mirrorIndex].name().toLowerCase(java.util.Locale.ROOT));
 		});
-		addButton(200, 110, 160, "rogue-engine-fabric.config.load", this::load);
+		addButton(200, 110, 160, "rogueengine.config.load", this::load);
 		addButton(width / 2 - 100, height - 50, 200, "gui.done", this::onClose);
 	}
 
@@ -51,7 +51,7 @@ public final class MapPreviewScreen extends AbstractConfigScreen {
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
 		super.extractRenderState(graphics, mouseX, mouseY, partialTick);
 		if (model == null) {
-			graphics.centeredText(font, Component.translatable("rogue-engine-fabric.config.preview_empty"),
+			graphics.centeredText(font, Component.translatable("rogueengine.config.preview_empty"),
 					width / 2, 160, 0xAAAAAA);
 			return;
 		}
@@ -84,7 +84,7 @@ public final class MapPreviewScreen extends AbstractConfigScreen {
 			model = source == Source.SNAPSHOT
 					? MapPreviewLoader.loadSnapshot(id, rotation, mirror)
 					: MapPreviewLoader.loadStructure(id, rotation, mirror);
-			setStatus("rogue-engine-fabric.config.preview_loaded", model.width(), model.depth());
+			setStatus("rogueengine.config.preview_loaded", model.width(), model.depth());
 		} catch (Exception exception) {
 			model = null;
 			setStatusMessage(Component.literal(exception.getMessage()));

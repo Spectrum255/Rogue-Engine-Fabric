@@ -74,7 +74,7 @@ class SaveImportServiceTest {
 		Path source = createFixture(temp.resolve("source"));
 		RegistryAccess registries = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 		SaveImportService service = new SaveImportService(temp.resolve("world"), registries);
-		Path target = temp.resolve("world/data/rogue-engine-fabric/map-snapshots/example/existing.nbt");
+		Path target = temp.resolve("world/data/rogueengine/map-snapshots/example/existing.nbt");
 		Files.createDirectories(target.getParent());
 		Files.writeString(target, "existing");
 		Files.writeString(source.resolve("session.lock"), "locked");

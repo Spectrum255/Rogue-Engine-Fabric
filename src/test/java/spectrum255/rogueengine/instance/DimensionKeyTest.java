@@ -18,7 +18,7 @@ class DimensionKeyTest {
 		UUID id = UUID.fromString("ABCDEFAB-1234-5678-90AB-CDEFABCDEFAB");
 		ResourceKey<Level> key = BoxInstance.dimensionKey(id);
 
-		assertEquals("rogue-engine-fabric", key.identifier().getNamespace());
+		assertEquals("rogueengine", key.identifier().getNamespace());
 		assertEquals("instance/abcdefab1234567890abcdefabcdefab", key.identifier().getPath());
 	}
 
@@ -37,7 +37,7 @@ class DimensionKeyTest {
 	@Test
 	void createdInstanceUsesTheEngineNamespace() {
 		BoxInstance instance = BoxInstance.create(UUID.randomUUID(), "Example");
-		assertEquals(Identifier.fromNamespaceAndPath("rogue-engine-fabric", "instance/"
+		assertEquals(Identifier.fromNamespaceAndPath("rogueengine", "instance/"
 				+ instance.id().toString().replace("-", "")), instance.dimensionKey().identifier());
 	}
 }

@@ -65,7 +65,7 @@ public final class SaveImportService {
 		try {
 			Path sourceRoot;
 			if (zip) {
-				tempRoot = worldRoot.resolve("data/rogue-engine-fabric/imports").resolve(UUID.randomUUID().toString());
+				tempRoot = worldRoot.resolve("data/rogueengine/imports").resolve(UUID.randomUUID().toString());
 				Set<String> allowed = allowedZipEntries(normalizedSource, dimension);
 				SafeZipExtractor.extract(normalizedSource, tempRoot, allowed);
 				sourceRoot = tempRoot;
@@ -135,7 +135,7 @@ public final class SaveImportService {
 		if (output.size() > MAX_SNAPSHOT_BYTES) {
 			throw new IllegalArgumentException("Imported snapshot exceeds " + MAX_SNAPSHOT_BYTES + " bytes");
 		}
-		Path target = worldRoot.resolve("data/rogue-engine-fabric/map-snapshots")
+		Path target = worldRoot.resolve("data/rogueengine/map-snapshots")
 				.resolve(id.getNamespace()).resolve(id.getPath() + ".nbt");
 		AtomicFiles.verifyManagedPath(worldRoot, target);
 		AtomicFiles.writeAtomic(target, output.toByteArray());

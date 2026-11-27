@@ -44,7 +44,7 @@ public final class DatapackAuthoringService {
 	}
 
 	public static Path configRoot() {
-		return FabricLoader.getInstance().getConfigDir().resolve("rogue-engine-fabric/datapacks").normalize();
+		return FabricLoader.getInstance().getConfigDir().resolve("rogueengine/datapacks").normalize();
 	}
 
 	public Path save(ConfigDraft draft) throws IOException {
@@ -153,12 +153,12 @@ public final class DatapackAuthoringService {
 	}
 
 	private static Path templatePath(Path pack, Identifier id) {
-		return pack.resolve("data").resolve(id.getNamespace()).resolve("rogue-engine-fabric")
+		return pack.resolve("data").resolve(id.getNamespace()).resolve("rogueengine")
 				.resolve("worldgen_template").resolve(id.getPath() + ".json");
 	}
 
 	private static Path profilePath(Path pack, Identifier id) {
-		return pack.resolve("data").resolve(id.getNamespace()).resolve("rogue-engine-fabric")
+		return pack.resolve("data").resolve(id.getNamespace()).resolve("rogueengine")
 				.resolve("profile").resolve(id.getPath() + ".json");
 	}
 
@@ -169,7 +169,7 @@ public final class DatapackAuthoringService {
 			while (entries.hasMoreElements()) {
 				String name = entries.nextElement().getName();
 				if (name.equals("pack.mcmeta") || name.matches(
-						"data/[a-z0-9_.-]+/rogue-engine-fabric/(worldgen_template|profile)/[a-z0-9_./-]+\\.json")) {
+						"data/[a-z0-9_.-]+/rogueengine/(worldgen_template|profile)/[a-z0-9_./-]+\\.json")) {
 					allowed.add(name);
 				}
 			}
@@ -221,7 +221,7 @@ public final class DatapackAuthoringService {
 			try (Stream<Path> paths = Files.walk(data)) {
 				List<Path> files = paths.filter(Files::isRegularFile)
 						.filter(path -> path.toString().replace('\\', '/')
-								.contains("/rogue-engine-fabric/" + registryFolder + "/"))
+								.contains("/rogueengine/" + registryFolder + "/"))
 						.filter(path -> path.getFileName().toString().endsWith(".json")).sorted().toList();
 				for (Path file : files) {
 					AtomicFiles.verifyManagedPath(pack, file);
@@ -238,7 +238,7 @@ public final class DatapackAuthoringService {
 	private static Identifier resourceId(Path dataRoot, Path file, String registryFolder) {
 		Path relative = dataRoot.relativize(file);
 		String namespace = relative.getName(0).toString();
-		if (relative.getNameCount() < 4 || !"rogue-engine-fabric".equals(relative.getName(1).toString())
+		if (relative.getNameCount() < 4 || !"rogueengine".equals(relative.getName(1).toString())
 				|| !registryFolder.equals(relative.getName(2).toString())) {
 			throw new IllegalArgumentException("Invalid Rogue Engine resource path: " + relative);
 		}

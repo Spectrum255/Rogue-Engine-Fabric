@@ -23,7 +23,7 @@
 - `BoxProfileCodec` 接受 schema 1 和 2；schema 1 不允许模板生成器。
 - `WorldGenTemplate` 保存模板类型、基础 stem、参数范围与可选预设。
 - `WorldGenTemplateCodec` 负责结构解析、范围校验、预设校验和尺度上限校验。
-- `WorldGenTemplateCatalog` 通过 Fabric `DynamicRegistries` 注册 `rogue-engine-fabric:worldgen_template`。
+- `WorldGenTemplateCatalog` 通过 Fabric `DynamicRegistries` 注册 `rogueengine:worldgen_template`。
 
 ### Worldgen 层
 

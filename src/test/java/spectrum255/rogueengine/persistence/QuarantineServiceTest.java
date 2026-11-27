@@ -19,13 +19,13 @@ class QuarantineServiceTest {
 	@Test
 	void recoversMovedDimensionWithoutManifest() throws IOException {
 		Path world = tempDirectory.resolve("world");
-		Path source = world.resolve("dimensions/rogue-engine-fabric/instance/test");
+		Path source = world.resolve("dimensions/rogueengine/instance/test");
 		Files.createDirectories(source);
 		Files.writeString(source.resolve("level.dat"), "data");
 		QuarantineService service = new QuarantineService(world, 7, () -> 1000L);
 		UUID operationId = UUID.randomUUID();
 		UUID instanceId = UUID.randomUUID();
-		Path target = world.resolve("rogue-engine-fabric/quarantine").resolve(operationId.toString()).resolve("dimension");
+		Path target = world.resolve("rogueengine/quarantine").resolve(operationId.toString()).resolve("dimension");
 		Files.createDirectories(target.getParent());
 		Files.move(source, target);
 
@@ -38,7 +38,7 @@ class QuarantineServiceTest {
 	@Test
 	void quarantinesPlayerInventoryFilesWithDimension() throws IOException {
 		Path world = tempDirectory.resolve("world");
-		Path inventoryRoot = world.resolve("data/rogue-engine-fabric/inventories");
+		Path inventoryRoot = world.resolve("data/rogueengine/inventories");
 		UUID player = UUID.randomUUID();
 		UUID instance = UUID.randomUUID();
 		UUID operation = UUID.randomUUID();
@@ -59,7 +59,7 @@ class QuarantineServiceTest {
 	@Test
 	void quarantinesSceneCacheWithOperation() throws IOException {
 		Path world = tempDirectory.resolve("world");
-		Path sceneRoot = world.resolve("data/rogue-engine-fabric/scenes");
+		Path sceneRoot = world.resolve("data/rogueengine/scenes");
 		UUID instance = UUID.randomUUID();
 		UUID operation = UUID.randomUUID();
 		Path source = sceneRoot.resolve(instance.toString());
@@ -77,7 +77,7 @@ class QuarantineServiceTest {
 	@Test
 	void quarantinesLegacyNestedSceneCache() throws IOException {
 		Path world = tempDirectory.resolve("world");
-		Path sceneRoot = world.resolve("data/rogue-engine-fabric/scenes");
+		Path sceneRoot = world.resolve("data/rogueengine/scenes");
 		UUID instance = UUID.randomUUID();
 		UUID operation = UUID.randomUUID();
 		Path source = sceneRoot.resolve("scenes").resolve(instance.toString());
@@ -94,7 +94,7 @@ class QuarantineServiceTest {
 	@Test
 	void missingSceneCacheDoesNotCreateEmptyQuarantine() throws IOException {
 		Path world = tempDirectory.resolve("world");
-		Path sceneRoot = world.resolve("data/rogue-engine-fabric/scenes");
+		Path sceneRoot = world.resolve("data/rogueengine/scenes");
 		QuarantineService service = new QuarantineService(world, 7, () -> 1000L);
 
 		Path target = service.quarantineScenes(UUID.randomUUID(), UUID.randomUUID(), sceneRoot);
@@ -105,7 +105,7 @@ class QuarantineServiceTest {
 	@Test
 	void quarantineMovesDimensionAndWritesManifest() throws IOException {
 		Path world = tempDirectory.resolve("world");
-		Path source = world.resolve("dimensions/rogue-engine-fabric/instance/test");
+		Path source = world.resolve("dimensions/rogueengine/instance/test");
 		Files.createDirectories(source);
 		Files.writeString(source.resolve("level.dat"), "data");
 		QuarantineService service = new QuarantineService(world, 7, () -> 1000L);

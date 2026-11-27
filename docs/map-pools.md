@@ -6,15 +6,15 @@
 
 ## 资源路径
 
-假设数据包命名空间为 `example`，模组 ID 为 `rogue-engine-fabric`：
+假设数据包命名空间为 `example`，模组 ID 为 `rogueengine`：
 
 ```text
 data/example/structure/room.nbt
-data/example/rogue-engine-fabric/map_snapshot/room.nbt
-data/example/rogue-engine-fabric/map_scene/room.json
-data/example/rogue-engine-fabric/map_pool/dungeon.json
-data/example/rogue-engine-fabric/worldgen_template/dungeon.json
-data/example/rogue-engine-fabric/profile/dungeon.json
+data/example/rogueengine/map_snapshot/room.nbt
+data/example/rogueengine/map_scene/room.json
+data/example/rogueengine/map_pool/dungeon.json
+data/example/rogueengine/worldgen_template/dungeon.json
+data/example/rogueengine/profile/dungeon.json
 ```
 
 Minecraft 26.3 的资源模板目录是单数 `structure/`，文件必须是 gzip 压缩的二进制 NBT。不要把结构放在 `structures/`，也不要在数据包中使用 `.snbt`；这两种形式不会被 26.3 的原版资源模板源加载。
@@ -22,17 +22,17 @@ Minecraft 26.3 的资源模板目录是单数 `structure/`，文件必须是 gzi
 模组内置示例位于：
 
 ```text
-data/rogue-engine-fabric/structure/example_room.nbt
-data/rogue-engine-fabric/rogue-engine-fabric/map_scene/example_room.json
-data/rogue-engine-fabric/rogue-engine-fabric/map_scene/example_room_alt.json
-data/rogue-engine-fabric/rogue-engine-fabric/map_snapshot/example_room.nbt
-data/rogue-engine-fabric/rogue-engine-fabric/map_scene/example_room_snapshot.json
-data/rogue-engine-fabric/rogue-engine-fabric/map_pool/example_pool.json
-data/rogue-engine-fabric/rogue-engine-fabric/map_pool/example_snapshot_pool.json
-data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/map_pool.json
-data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/map_pool_snapshot.json
-data/rogue-engine-fabric/rogue-engine-fabric/profile/map_pool.json
-data/rogue-engine-fabric/rogue-engine-fabric/profile/map_pool_snapshot.json
+data/rogueengine/structure/example_room.nbt
+data/rogueengine/rogueengine/map_scene/example_room.json
+data/rogueengine/rogueengine/map_scene/example_room_alt.json
+data/rogueengine/rogueengine/map_snapshot/example_room.nbt
+data/rogueengine/rogueengine/map_scene/example_room_snapshot.json
+data/rogueengine/rogueengine/map_pool/example_pool.json
+data/rogueengine/rogueengine/map_pool/example_snapshot_pool.json
+data/rogueengine/rogueengine/worldgen_template/map_pool.json
+data/rogueengine/rogueengine/worldgen_template/map_pool_snapshot.json
+data/rogueengine/rogueengine/profile/map_pool.json
+data/rogueengine/rogueengine/profile/map_pool_snapshot.json
 ```
 
 可用 `python verification/generate-example-structure.py` 重新生成内置二进制结构，用 `python verification/generate-example-snapshot.py` 重新生成内置场景快照。
@@ -98,24 +98,24 @@ data/rogue-engine-fabric/rogue-engine-fabric/profile/map_pool_snapshot.json
 管理员可从当前维度捕获区域：
 
 ```text
-/rogue-engine map snapshot capture <snapshot_id> <from> <to>
+/rogueengine map snapshot capture <snapshot_id> <from> <to>
 ```
 
-捕获结果写入 `<world>/data/rogue-engine-fabric/map-snapshots/<namespace>/<path>.nbt`，立即可用。世界受管文件与数据包资源 ID 冲突时，世界文件优先。
+捕获结果写入 `<world>/data/rogueengine/map-snapshots/<namespace>/<path>.nbt`，立即可用。世界受管文件与数据包资源 ID 冲突时，世界文件优先。
 
 ### 从存档导入区域
 
 管理员可将同一版本存档的指定维度区域转换为快照：
 
 ```text
-/rogue-engine map snapshot import <snapshot_id> <source> <dimension> <from> <to> <include_entities> <include_block_entities>
+/rogueengine map snapshot import <snapshot_id> <source> <dimension> <from> <to> <include_entities> <include_block_entities>
 ```
 
 例如：
 
 ```text
-/rogue-engine map snapshot import example:imported "D:/saves/source-world" minecraft:overworld 0 128 0 64 128 64 true true
-/rogue-engine map snapshot import example:imported_zip "./source-world.zip" minecraft:the_nether -32 64 -32 32 96 32 false true
+/rogueengine map snapshot import example:imported "D:/saves/source-world" minecraft:overworld 0 128 0 64 128 64 true true
+/rogueengine map snapshot import example:imported_zip "./source-world.zip" minecraft:the_nether -32 64 -32 32 96 32 false true
 ```
 
 - 命令需要 admin 权限，并且只允许控制台、RCON 等非玩家命令源执行。
@@ -140,7 +140,7 @@ ZIP 只提取 `level.dat` 和选中维度的 `region/*.mca`、`entities/*.mca`�
 输出仍为：
 
 ```text
-<world>/data/rogue-engine-fabric/map-snapshots/<namespace>/<path>.nbt
+<world>/data/rogueengine/map-snapshots/<namespace>/<path>.nbt
 ```
 
 命令输出目标路径、SHA-256、方块数、方块实体数和顶层实体数。完整解析和校验完成后才原子替换目标文件；失败不会覆盖已有快照。导入不会自动生成 `MapScene`、`MapPool` 或 Profile，只需像使用其他快照一样声明 schema v2 场景：
@@ -255,13 +255,13 @@ Profile 使用 schema v2 引用模板：
 创建地图箱庭：
 
 ```text
-/rogue-engine instance create <profile> [name]
+/rogueengine instance create <profile> [name]
 ```
 
 创建时进一步筛选场景：
 
 ```text
-/rogue-engine instance create <profile> create-map <scene1,scene2>
+/rogueengine instance create <profile> create-map <scene1,scene2>
 ```
 
 `create-map` 后的参数使用逗号分隔场景 ID，并占用剩余命令文本，因此该形式不能再追加自定义箱庭名称。省略筛选时使用地图集与模板范围的交集。
@@ -269,7 +269,7 @@ Profile 使用 schema v2 引用模板：
 地图创建是异步的，命令返回 `Preparing box <uuid>`。使用以下命令等待结果：
 
 ```text
-/rogue-engine instance info <uuid>
+/rogueengine instance info <uuid>
 ```
 
 成功状态为 `ACTIVE`；失败状态为 `RECOVERY_REQUIRED`。信息中的 `map=<scene_id>` 和 `resets=<count>` 分别显示固定场景和刷新次数。
@@ -277,7 +277,7 @@ Profile 使用 schema v2 引用模板：
 手动刷新：
 
 ```text
-/rogue-engine instance reset <uuid>
+/rogueengine instance reset <uuid>
 ```
 
 刷新流程为 `ACTIVE -> RESETTING -> ACTIVE`：写入 `COMPLETE_RESET` WAL、清理场景边界、从实例缓存重新放置结构、检查出生点，然后增加 `reset_count`。刷新不会改变场景 ID、抽取 seed 或循环进度。
@@ -287,13 +287,13 @@ Profile 使用 schema v2 引用模板：
 创建成功后，catalog 的实例 `definition.scene_snapshot` 保存地图集、选中场景、源哈希、抽取信息、边界、出生点、刷新策略和刷新次数。场景源副本位于：
 
 ```text
-<world>/data/rogue-engine-fabric/scenes/<instance_uuid>/source.nbt
+<world>/data/rogueengine/scenes/<instance_uuid>/source.nbt
 ```
 
 `player_reset=full` 的每玩家状态文件位于：
 
 ```text
-<world>/data/rogue-engine-fabric/scenes/<instance_uuid>/players/<player_uuid>.dat
+<world>/data/rogueengine/scenes/<instance_uuid>/players/<player_uuid>.dat
 ```
 
 状态文件损坏时会取消进入；箱庭内重连恢复失败时会断开连接。
@@ -301,13 +301,13 @@ Profile 使用 schema v2 引用模板：
 不重复循环进度位于：
 
 ```text
-<world>/data/rogue-engine-fabric/map-pools/<namespace>/<pool_path>.json
+<world>/data/rogueengine/map-pools/<namespace>/<pool_path>.json
 ```
 
 - 普通重入保留当前地图状态。
 - 刷新只恢复当前选中地图。
 - 归档和恢复保留选中地图与刷新次数。
-- 永久销毁时，场景缓存随维度目录和库存进入 `rogue-engine-fabric/quarantine/<operation_id>/scenes/`。
+- 永久销毁时，场景缓存随维度目录和库存进入 `rogueengine/quarantine/<operation_id>/scenes/`。
 - 旧箱庭没有 `scene_snapshot`，继续按普通维度处理，不需要迁移。
 
 ## 限制与验证

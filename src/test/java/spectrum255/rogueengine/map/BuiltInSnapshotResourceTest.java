@@ -45,18 +45,18 @@ class BuiltInSnapshotResourceTest {
 		BoxProfile profile = readProfile();
 
 		assertEquals(MapScene.SourceKind.SNAPSHOT, scene.source().kind());
-		assertEquals(Identifier.parse("rogue-engine-fabric:example_room"), scene.source().id());
+		assertEquals(Identifier.parse("rogueengine:example_room"), scene.source().id());
 		assertEquals(1, pool.entries().size());
 		assertEquals("map_pool", template.generatorKind());
-		assertEquals("rogue-engine-fabric:example_snapshot_pool", template.mapPoolId().toString());
-		assertEquals("rogue-engine-fabric:map_pool_snapshot",
+		assertEquals("rogueengine:example_snapshot_pool", template.mapPoolId().toString());
+		assertEquals("rogueengine:map_pool_snapshot",
 				assertInstanceOf(BoxProfile.TemplateGenerator.class, profile.generator()).id().toString());
 	}
 
 	@Test
 	void builtInSnapshotContainsBlocksBlockEntityAndEntity() throws IOException {
 		try (InputStream input = BuiltInSnapshotResourceTest.class.getResourceAsStream(
-				"/data/rogue-engine-fabric/rogue-engine-fabric/map_snapshot/example_room.nbt")) {
+				"/data/rogueengine/rogueengine/map_snapshot/example_room.nbt")) {
 			assertNotNull(input, "Missing built-in snapshot");
 			CompoundTag tag = NbtIo.readCompressed(input, NbtAccounter.create(64 * 1024 * 1024));
 			MapSnapshot snapshot = MapSnapshotCodec.read(tag,
@@ -69,28 +69,28 @@ class BuiltInSnapshotResourceTest {
 	}
 
 	private MapScene readScene() throws IOException {
-		try (InputStream input = resource("/data/rogue-engine-fabric/rogue-engine-fabric/map_scene/example_room_snapshot.json")) {
+		try (InputStream input = resource("/data/rogueengine/rogueengine/map_scene/example_room_snapshot.json")) {
 			return MapSceneCodec.CODEC.parse(JsonOps.INSTANCE,
 					JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8))).getOrThrow();
 		}
 	}
 
 	private MapPool readPool() throws IOException {
-		try (InputStream input = resource("/data/rogue-engine-fabric/rogue-engine-fabric/map_pool/example_snapshot_pool.json")) {
+		try (InputStream input = resource("/data/rogueengine/rogueengine/map_pool/example_snapshot_pool.json")) {
 			return MapPoolCodec.CODEC.parse(JsonOps.INSTANCE,
 					JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8))).getOrThrow();
 		}
 	}
 
 	private WorldGenTemplate readTemplate() throws IOException {
-		try (InputStream input = resource("/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/map_pool_snapshot.json")) {
+		try (InputStream input = resource("/data/rogueengine/rogueengine/worldgen_template/map_pool_snapshot.json")) {
 			return WorldGenTemplateCodec.CODEC.parse(JsonOps.INSTANCE,
 					JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8))).getOrThrow();
 		}
 	}
 
 	private BoxProfile readProfile() throws IOException {
-		try (InputStream input = resource("/data/rogue-engine-fabric/rogue-engine-fabric/profile/map_pool_snapshot.json")) {
+		try (InputStream input = resource("/data/rogueengine/rogueengine/profile/map_pool_snapshot.json")) {
 			return BoxProfileCodec.CODEC.parse(JsonOps.INSTANCE,
 					JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8))).getOrThrow();
 		}

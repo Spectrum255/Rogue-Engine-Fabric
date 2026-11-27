@@ -48,7 +48,7 @@
 
 ```text
 mods/
-├─ rogue-engine-fabric-1.0.0.jar
+├─ rogueengine-1.0.0.jar
 └─ fabric-api-0.167.0+26.3.jar
 ```
 
@@ -59,28 +59,28 @@ mods/
 进入游戏或使用 RCON 执行：
 
 ```mcfunction
-/rogue-engine profile list
-/rogue-engine instance create rogue-engine-fabric:central_island 我的浮岛
-/rogue-engine instance list
+/rogueengine profile list
+/rogueengine instance create rogueengine:central_island 我的浮岛
+/rogueengine instance list
 ```
 
 记录命令返回的箱庭 UUID，然后传送：
 
 ```mcfunction
-/rogue-engine instance teleport <uuid>
+/rogueengine instance teleport <uuid>
 ```
 
 离开并归档：
 
 ```mcfunction
-/rogue-engine instance evacuate <uuid>
-/rogue-engine instance archive <uuid>
+/rogueengine instance evacuate <uuid>
+/rogueengine instance archive <uuid>
 ```
 
 之后可随时恢复：
 
 ```mcfunction
-/rogue-engine instance restore <uuid>
+/rogueengine instance restore <uuid>
 ```
 
 ### 3. 可选：打开配置界面
@@ -96,7 +96,7 @@ mods/
 本地数据包目录：
 
 ```text
-config/rogue-engine-fabric/datapacks/
+config/rogueengine/datapacks/
 ```
 
 ---
@@ -146,62 +146,62 @@ Profile + WorldGenTemplate + MapPool
 
 | ID | 用途 |
 |---|---|
-| `rogue-engine-fabric:noise_chaos` | 确定性噪声参数随机化 |
-| `rogue-engine-fabric:full_chaos` | 更强烈的密度与气候扭曲 |
-| `rogue-engine-fabric:preset_chaos` | 从预设参数中随机选择 |
-| `rogue-engine-fabric:bounded_noise` | 圆形/椭圆地形边界 |
-| `rogue-engine-fabric:central_island` | 单岛中央浮岛 |
-| `rogue-engine-fabric:central_island_layers` | 自定义表层、土层、岩石和矿石 |
-| `rogue-engine-fabric:map_pool` | 结构地图随机地图集 |
-| `rogue-engine-fabric:map_pool_snapshot` | 快照地图随机地图集 |
+| `rogueengine:noise_chaos` | 确定性噪声参数随机化 |
+| `rogueengine:full_chaos` | 更强烈的密度与气候扭曲 |
+| `rogueengine:preset_chaos` | 从预设参数中随机选择 |
+| `rogueengine:bounded_noise` | 圆形/椭圆地形边界 |
+| `rogueengine:central_island` | 单岛中央浮岛 |
+| `rogueengine:central_island_layers` | 自定义表层、土层、岩石和矿石 |
+| `rogueengine:map_pool` | 结构地图随机地图集 |
+| `rogueengine:map_pool_snapshot` | 快照地图随机地图集 |
 
 ---
 
 ## 命令
 
-命令根节点为 `/rogue-engine`。
+命令根节点为 `/rogueengine`。
 
 ### 查询
 
 ```mcfunction
-/rogue-engine profile list
-/rogue-engine instance list
-/rogue-engine instance info <uuid>
+/rogueengine profile list
+/rogueengine instance list
+/rogueengine instance info <uuid>
 ```
 
 ### 箱庭生命周期
 
 ```mcfunction
-/rogue-engine instance create <profile> [name]
-/rogue-engine instance teleport <uuid>
-/rogue-engine instance evacuate <uuid>
-/rogue-engine instance archive <uuid>
-/rogue-engine instance restore <uuid>
-/rogue-engine instance reset <uuid>
+/rogueengine instance create <profile> [name]
+/rogueengine instance teleport <uuid>
+/rogueengine instance evacuate <uuid>
+/rogueengine instance archive <uuid>
+/rogueengine instance restore <uuid>
+/rogueengine instance reset <uuid>
 ```
 
 ### 地图集
 
 ```mcfunction
-/rogue-engine instance create <profile> create-map <scene1,scene2>
+/rogueengine instance create <profile> create-map <scene1,scene2>
 ```
 
 ### 场景快照
 
 ```mcfunction
-/rogue-engine map snapshot capture <snapshot_id> <from> <to>
-/rogue-engine map snapshot import <snapshot_id> <source> <dimension> <from> <to> <include_entities> <include_block_entities>
+/rogueengine map snapshot capture <snapshot_id> <from> <to>
+/rogueengine map snapshot import <snapshot_id> <source> <dimension> <from> <to> <include_entities> <include_block_entities>
 ```
 
 ### 管理
 
 ```mcfunction
-/rogue-engine admin datapack import <pack_name> <zip_path>
-/rogue-engine admin destroy prepare <uuid>
-/rogue-engine admin destroy confirm <uuid> <token>
-/rogue-engine admin destroy cancel <uuid>
-/rogue-engine admin recover
-/rogue-engine admin stats
+/rogueengine admin datapack import <pack_name> <zip_path>
+/rogueengine admin destroy prepare <uuid>
+/rogueengine admin destroy confirm <uuid> <token>
+/rogueengine admin destroy cancel <uuid>
+/rogueengine admin recover
+/rogueengine admin stats
 ```
 
 ### 权限说明
@@ -219,7 +219,7 @@ Profile + WorldGenTemplate + MapPool
 ### 目录结构
 
 ```text
-data/<pack_namespace>/rogue-engine-fabric/
+data/<pack_namespace>/rogueengine/
 ├─ profile/<profile_id>.json
 ├─ worldgen_template/<template_id>.json
 ├─ map_scene/<scene_id>.json
@@ -241,7 +241,7 @@ data/<pack_namespace>/structure/<structure_id>.nbt
   "dimension_type": "minecraft:overworld",
   "generator": {
     "kind": "template",
-    "id": "rogue-engine-fabric:central_island"
+    "id": "rogueengine:central_island"
   },
   "seed": {
     "mode": "fixed",
@@ -312,7 +312,7 @@ Profile 通过 `dimension_type` 引用维度类型。数据包可以自定义：
 专用服务器也可通过 RCON 导入本地数据包：
 
 ```mcfunction
-/rogue-engine admin datapack import my_pack /path/to/my_pack.zip
+/rogueengine admin datapack import my_pack /path/to/my_pack.zip
 ```
 
 ---
@@ -357,11 +357,11 @@ export JAVA_HOME=/path/to/jdk-25
 
 ```text
 build/libs/
-├─ rogue-engine-fabric-1.0.0.jar
-└─ rogue-engine-fabric-1.0.0-sources.jar
+├─ rogueengine-1.0.0.jar
+└─ rogueengine-1.0.0-sources.jar
 ```
 
-- `rogue-engine-fabric-1.0.0.jar`：运行所需发布模组。
+- `rogueengine-1.0.0.jar`：运行所需发布模组。
 - `-sources.jar`：可选源码包，仅用于开发或发布附属工件，不是运行依赖。
 
 ---

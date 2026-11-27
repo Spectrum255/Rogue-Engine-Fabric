@@ -4,7 +4,7 @@
 
 ## 1. 功能概览
 
-模组新增动态注册表 `rogue-engine-fabric:worldgen_template`，允许数据包定义可复现的世界生成参数模板。Profile 的 `schema_version` 支持 1 和 2：
+模组新增动态注册表 `rogueengine:worldgen_template`，允许数据包定义可复现的世界生成参数模板。Profile 的 `schema_version` 支持 1 和 2：
 
 - schema 1：继续使用原有 `stem` 或 `inline` 生成器。
 - schema 2：可使用 `generator.kind=template` 引用世界生成模板。
@@ -24,16 +24,16 @@
 模板路径：
 
 ```text
-data/<pack_namespace>/rogue-engine-fabric/worldgen_template/<template_id>.json
+data/<pack_namespace>/rogueengine/worldgen_template/<template_id>.json
 ```
 
 Profile 路径：
 
 ```text
-data/<pack_namespace>/rogue-engine-fabric/profile/<profile_id>.json
+data/<pack_namespace>/rogueengine/profile/<profile_id>.json
 ```
 
-`<pack_namespace>` 是数据包命名空间，第二段 `rogue-engine-fabric` 是模组动态注册表的命名空间，不能拼成 `rouge-engine-fabric`。
+`<pack_namespace>` 是数据包命名空间，第二段 `rogueengine` 是模组动态注册表的命名空间，不能拼成 `rougeengine`。
 
 ## 3. 模板格式
 
@@ -181,7 +181,7 @@ Profile 不指定 `preset` 时按 seed 自动选择；指定时直接选择对�
   "dimension_type": "minecraft:overworld",
   "generator": {
     "kind": "template",
-    "id": "rogue-engine-fabric:noise_chaos",
+    "id": "rogueengine:noise_chaos",
     "overrides": {
       "density_offset": 0.1
     }
@@ -203,22 +203,22 @@ Profile 不指定 `preset` 时按 seed 自动选择；指定时直接选择对�
 
 模组内置以下模板：
 
-- `rogue-engine-fabric:noise_chaos`
-- `rogue-engine-fabric:full_chaos`
-- `rogue-engine-fabric:preset_chaos`
-- `rogue-engine-fabric:bounded_noise`（圆形 `void` 边界示例）
-- `rogue-engine-fabric:central_island`（原版地表浮岛）
-- `rogue-engine-fabric:central_island_layers`（自定义分层与煤矿浮岛）
+- `rogueengine:noise_chaos`
+- `rogueengine:full_chaos`
+- `rogueengine:preset_chaos`
+- `rogueengine:bounded_noise`（圆形 `void` 边界示例）
+- `rogueengine:central_island`（原版地表浮岛）
+- `rogueengine:central_island_layers`（自定义分层与煤矿浮岛）
 
 同时提供同名 profile，可直接使用：
 
 ```text
-/rogue-engine instance create rogue-engine-fabric:noise_chaos Noise Box
-/rogue-engine instance create rogue-engine-fabric:full_chaos Full Chaos Box
-/rogue-engine instance create rogue-engine-fabric:preset_chaos Preset Box
-/rogue-engine instance create rogue-engine-fabric:bounded_noise Bounded Box
-/rogue-engine instance create rogue-engine-fabric:central_island Island Box
-/rogue-engine instance create rogue-engine-fabric:central_island_layers Layered Island Box
+/rogueengine instance create rogueengine:noise_chaos Noise Box
+/rogueengine instance create rogueengine:full_chaos Full Chaos Box
+/rogueengine instance create rogueengine:preset_chaos Preset Box
+/rogueengine instance create rogueengine:bounded_noise Bounded Box
+/rogueengine instance create rogueengine:central_island Island Box
+/rogueengine instance create rogueengine:central_island_layers Layered Island Box
 ```
 
 ## 7. 快照与兼容性

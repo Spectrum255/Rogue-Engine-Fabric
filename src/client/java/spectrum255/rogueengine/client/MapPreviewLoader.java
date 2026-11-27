@@ -67,7 +67,7 @@ public final class MapPreviewLoader {
 
 	private static Identifier snapshotResourceId(Identifier id) {
 		return Identifier.fromNamespaceAndPath(id.getNamespace(),
-				"rogue-engine-fabric/map_snapshot/" + id.getPath() + ".nbt");
+				"rogueengine/map_snapshot/" + id.getPath() + ".nbt");
 	}
 
 	private static Identifier structureResourceId(Identifier id) {

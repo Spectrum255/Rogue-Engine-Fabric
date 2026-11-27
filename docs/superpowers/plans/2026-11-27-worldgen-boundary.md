@@ -166,7 +166,7 @@ Expected: 新测试与旧模板测试全部通过。
 - Create: `src/main/java/spectrum255/rogueengine/worldgen/WorldGenRegistry.java`
 - Create: `src/main/java/spectrum255/rogueengine/mixin/BuiltInRegistriesMixin.java`
 - Create: `src/test/java/spectrum255/rogueengine/worldgen/BoundedDensityFunctionTest.java`
-- Modify: `src/main/resources/rogue-engine-fabric.mixins.json`
+- Modify: `src/main/resources/rogueengine.mixins.json`
 
 - [ ] **Step 1: 写密度屏蔽与 Codec 失败测试**
 
@@ -225,7 +225,7 @@ public final class BoundedDensityFunction implements DensityFunction {
 
 - [ ] **Step 4: 在注册表冻结前注册**
 
-新增 `BuiltInRegistriesMixin`，注入 `BuiltInRegistries.createContents()` 的 `RETURN`，调用 `WorldGenRegistry.register()`。该方法在 `BuiltInRegistries.bootStrap()` 调用 `freeze()` 前执行。把 mixin 加入 `rogue-engine-fabric.mixins.json`。普通单元测试不启动 Fabric/Mixin，因此直接验证 `BoundedDensityFunction.CODEC`；注册表分发由服务端冒烟覆盖。
+新增 `BuiltInRegistriesMixin`，注入 `BuiltInRegistries.createContents()` 的 `RETURN`，调用 `WorldGenRegistry.register()`。该方法在 `BuiltInRegistries.bootStrap()` 调用 `freeze()` 前执行。把 mixin 加入 `rogueengine.mixins.json`。普通单元测试不启动 Fabric/Mixin，因此直接验证 `BoundedDensityFunction.CODEC`；注册表分发由服务端冒烟覆盖。
 
 - [ ] **Step 5: 运行密度函数测试**
 
@@ -299,7 +299,7 @@ public static final MapCodec<BoundedNoiseGenerator> CODEC = RecordCodecBuilder.m
 ).apply(instance, BoundedNoiseGenerator::new));
 ```
 
-`WorldGenRegistry` 同时注册 `rogue-engine-fabric:bounded_noise` 到 `BuiltInRegistries.CHUNK_GENERATOR`。
+`WorldGenRegistry` 同时注册 `rogueengine:bounded_noise` 到 `BuiltInRegistries.CHUNK_GENERATOR`。
 
 - [ ] **Step 4: 运行生成器测试**
 
@@ -366,8 +366,8 @@ Expected: 全部通过。
 ## Task 5：内置示例、服务端冒烟与文档
 
 **Files:**
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/bounded_noise.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/profile/bounded_noise.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/worldgen_template/bounded_noise.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/profile/bounded_noise.json`
 - Modify: `verification/server-smoke.ps1`
 - Modify: `docs/worldgen-templates.md`
 - Modify: `README.md`
@@ -378,10 +378,10 @@ Expected: 全部通过。
 
 - [ ] **Step 2: 扩展服务端冒烟**
 
-创建 `rogue-engine-fabric:bounded_noise`，验证：
+创建 `rogueengine:bounded_noise`，验证：
 
 - 命令返回 `Preparing box`，随后 `state=ACTIVE`。
-- catalog 的 `level_stem_json` 包含 `rogue-engine-fabric:bounded_noise`。
+- catalog 的 `level_stem_json` 包含 `rogueengine:bounded_noise`。
 - `profile_json.border.initial_size == 256`。
 - 手动刷新、归档、恢复通过。
 

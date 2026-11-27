@@ -15,29 +15,29 @@ public final class TransferScreen extends AbstractConfigScreen {
 	private EditBox zipPath;
 
 	public TransferScreen(Screen parent, DraftState state) {
-		super(Component.translatable("rogue-engine-fabric.config.transfer"), parent, state);
+		super(Component.translatable("rogueengine.config.transfer"), parent, state);
 	}
 
 	@Override
 	protected void init() {
-		packName = field(20, 40, 220, "rogue-engine-fabric.config.pack_name", state.draft().packName());
-		zipPath = field(20, 100, 360, "rogue-engine-fabric.config.zip_path", "rogue-engine-export.zip");
-		addButton(20, 160, 160, "rogue-engine-fabric.config.import_zip", this::importZip);
-		addButton(200, 160, 160, "rogue-engine-fabric.config.export_zip", this::exportZip);
+		packName = field(20, 40, 220, "rogueengine.config.pack_name", state.draft().packName());
+		zipPath = field(20, 100, 360, "rogueengine.config.zip_path", "rogue-engine-export.zip");
+		addButton(20, 160, 160, "rogueengine.config.import_zip", this::importZip);
+		addButton(200, 160, 160, "rogueengine.config.export_zip", this::exportZip);
 		addButton(width / 2 - 100, height - 50, 200, "gui.done", this::onClose);
 	}
 
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
 		super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-		graphics.textWithWordWrap(font, Component.translatable("rogue-engine-fabric.config.dedicated_hint"),
+		graphics.textWithWordWrap(font, Component.translatable("rogueengine.config.dedicated_hint"),
 				20, 205, width - 40, 12);
 	}
 
 	private void importZip() {
 		try {
 			state.service().importZip(resolvePath(), packName.getValue().trim());
-			setStatus("rogue-engine-fabric.config.imported", packName.getValue().trim());
+			setStatus("rogueengine.config.imported", packName.getValue().trim());
 		} catch (IOException | RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}
@@ -46,7 +46,7 @@ public final class TransferScreen extends AbstractConfigScreen {
 	private void exportZip() {
 		try {
 			Path target = state.service().exportZip(packName.getValue().trim(), resolvePath());
-			setStatus("rogue-engine-fabric.config.exported", target.toString());
+			setStatus("rogueengine.config.exported", target.toString());
 		} catch (IOException | RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}

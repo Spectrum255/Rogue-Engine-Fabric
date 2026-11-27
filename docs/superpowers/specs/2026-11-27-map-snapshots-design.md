@@ -17,7 +17,7 @@
 ### 数据包快照
 
 ```text
-data/<pack_namespace>/rogue-engine-fabric/map_snapshot/<snapshot_id>.nbt
+data/<pack_namespace>/rogueengine/map_snapshot/<snapshot_id>.nbt
 ```
 
 文件是 gzip 压缩的二进制 NBT。`MapSnapshotCatalog` 按需读取，不把大体积二进制注册进动态注册表；数据包重载后下一次创建自然读取新资源。
@@ -25,7 +25,7 @@ data/<pack_namespace>/rogue-engine-fabric/map_snapshot/<snapshot_id>.nbt
 ### 世界受管快照
 
 ```text
-<world>/data/rogue-engine-fabric/map-snapshots/<namespace>/<path>.nbt
+<world>/data/rogueengine/map-snapshots/<namespace>/<path>.nbt
 ```
 
 区域捕获命令写入该目录。世界文件与数据包资源使用同一解析器；两者 ID 冲突时，世界受管文件优先，便于捕获后立即测试和覆盖。
@@ -90,7 +90,7 @@ data/<pack_namespace>/rogue-engine-fabric/map_snapshot/<snapshot_id>.nbt
 ## 捕获命令
 
 ```text
-/rogue-engine map snapshot capture <snapshot_id> <from> <to>
+/rogueengine map snapshot capture <snapshot_id> <from> <to>
 ```
 
 - 需要 admin 权限。

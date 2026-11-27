@@ -121,8 +121,8 @@ Expected: compilation fails because map classes do not exist.
 
 在入口注册：
 
-- `rogue-engine-fabric:map_scene`
-- `rogue-engine-fabric:map_pool`
+- `rogueengine:map_scene`
+- `rogueengine:map_pool`
 
 Catalog 模式复用 `ProfileCatalog`/`WorldGenTemplateCatalog`。
 
@@ -174,7 +174,7 @@ Expected: compilation fails because draw classes do not exist.
 
 - [ ] **Step 3: Persist draw state**
 
-世界级状态保存在 `data/rogue-engine-fabric/map-pools/<pool_id>.json`，原子写入。旧世界无状态时从空循环开始。
+世界级状态保存在 `data/rogueengine/map-pools/<pool_id>.json`，原子写入。旧世界无状态时从空循环开始。
 
 - [ ] **Step 4: Run tests**
 
@@ -263,7 +263,7 @@ Expected: old and new definitions round-trip.
 
 - [ ] **Step 2: Implement cache service**
 
-缓存目录：`<world>/data/rogue-engine-fabric/scenes/<instance_uuid>/`。使用 `AtomicFiles` 写入元数据，复制源文件后校验 SHA-256。
+缓存目录：`<world>/data/rogueengine/scenes/<instance_uuid>/`。使用 `AtomicFiles` 写入元数据，复制源文件后校验 SHA-256。
 
 - [ ] **Step 3: Implement structure placement**
 
@@ -313,7 +313,7 @@ Expected: cache and placement tests pass.
 
 - [ ] **Step 3: Extend commands**
 
-`/rogue-engine instance create <profile> [name]` 增加可选地图筛选参数；`instance info` 显示选中场景、地图集和刷新次数。
+`/rogueengine instance create <profile> [name]` 增加可选地图筛选参数；`instance info` 显示选中场景、地图集和刷新次数。
 
 - [ ] **Step 4: Run tests**
 
@@ -370,7 +370,7 @@ Expected: state and recovery tests pass.
 
 - [ ] **Step 3: Wire triggers**
 
-- 手动命令：`/rogue-engine instance reset <uuid>`。
+- 手动命令：`/rogueengine instance reset <uuid>`。
 - 最后一名玩家离开：监听玩家离开事件并检查维度玩家数。
 - 死亡：记录待刷新请求。
 - 完成事件：提供内部 `RefreshTrigger.COMPLETED` 接口，供后续玩法模块调用。
@@ -409,10 +409,10 @@ Expected: quarantine tests pass.
 
 **Files:**
 
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/map_scene/example_room.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/map_pool/example_pool.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/profile/map_pool.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/structures/example_room.nbt`
+- Create: `src/main/resources/data/rogueengine/rogueengine/map_scene/example_room.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/map_pool/example_pool.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/profile/map_pool.json`
+- Create: `src/main/resources/data/rogueengine/structures/example_room.nbt`
 - Create: `src/test/java/spectrum255/rogueengine/map/BuiltInMapResourceTest.java`
 - Modify: `verification/server-smoke.ps1`
 

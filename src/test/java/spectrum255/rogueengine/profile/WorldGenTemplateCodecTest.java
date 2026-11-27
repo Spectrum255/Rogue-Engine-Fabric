@@ -246,13 +246,13 @@ class WorldGenTemplateCodecTest {
 				  "schema_version": 1,
 				  "generator_kind": "map_pool",
 				  "base_stem": "minecraft:overworld",
-				  "map_pool": "rogue-engine-fabric:example_pool",
-				  "default_range": {"scenes": ["rogue-engine-fabric:room_a"], "tags": []}
+				  "map_pool": "rogueengine:example_pool",
+				  "default_range": {"scenes": ["rogueengine:room_a"], "tags": []}
 				}
 				""").getOrThrow();
 
 		assertEquals("map_pool", template.generatorKind());
-		assertEquals("rogue-engine-fabric:example_pool", template.mapPoolId().toString());
+		assertEquals("rogueengine:example_pool", template.mapPoolId().toString());
 		assertEquals(1, template.defaultSelection().sceneIds().size());
 	}
 
@@ -274,7 +274,7 @@ class WorldGenTemplateCodecTest {
 				  "schema_version": 1,
 				  "generator_kind": "noise_chaos",
 				  "base_stem": "minecraft:overworld",
-				  "map_pool": "rogue-engine-fabric:example_pool",
+				  "map_pool": "rogueengine:example_pool",
 				  "ranges": {
 				    "density_offset": {"min": -0.2, "max": 0.2},
 				    "density_scale": {"min": 0.8, "max": 1.2},

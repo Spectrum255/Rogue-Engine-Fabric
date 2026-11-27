@@ -272,13 +272,13 @@ public record Imported(Path file, String hash, int blocks, int blockEntities, in
 流程：
 
 1. `SnapshotCaptureService.validateRegion`。
-2. ZIP 源创建 `<world>/data/rogue-engine-fabric/imports/<uuid>/`，调用 `SafeZipExtractor`，`finally` 删除临时目录。
+2. ZIP 源创建 `<world>/data/rogueengine/imports/<uuid>/`，调用 `SafeZipExtractor`，`finally` 删除临时目录。
 3. 文件夹源直接只读打开。
 4. `SavedWorldReader.validateWorld`。
 5. 遍历区域相交区块，最多 4096；`readChunk` 为 null 则跳过。
 6. 合并 `SavedChunkDecoder.Decoded` 的调色板和方块。
 7. 实体读取合并所有 chunk 与 legacy `entities`；收集乘客 UUID，去重顶层实体，拒绝玩家，局部化并移除 UUID。
-8. 构造 `MapSnapshot`，压缩写入 `<world>/data/rogue-engine-fabric/map-snapshots/<ns>/<path>.nbt`。
+8. 构造 `MapSnapshot`，压缩写入 `<world>/data/rogueengine/map-snapshots/<ns>/<path>.nbt`。
 9. 返回哈希和计数。
 
 实体辅助方法：

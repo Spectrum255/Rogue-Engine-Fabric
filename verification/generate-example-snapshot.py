@@ -107,7 +107,7 @@ def main() -> None:
     payload = b"\x0a\x00\x00" + root
 
     repo = Path(__file__).resolve().parents[1]
-    target = repo / "src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/map_snapshot/example_room.nbt"
+    target = repo / "src/main/resources/data/rogueengine/rogueengine/map_snapshot/example_room.nbt"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(gzip.compress(payload, mtime=0))
     print(f"Generated {target}")

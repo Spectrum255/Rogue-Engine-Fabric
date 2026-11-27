@@ -33,7 +33,7 @@ class ProfileCatalogTest {
 
 	@Test
 	void registryKeyUsesEngineNamespace() {
-		assertEquals("rogue-engine-fabric", ProfileCatalog.REGISTRY_KEY.identifier().getNamespace());
+		assertEquals("rogueengine", ProfileCatalog.REGISTRY_KEY.identifier().getNamespace());
 		assertEquals("profile", ProfileCatalog.REGISTRY_KEY.identifier().getPath());
 	}
 

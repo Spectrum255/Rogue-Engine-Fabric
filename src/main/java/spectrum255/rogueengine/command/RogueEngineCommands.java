@@ -46,7 +46,7 @@ import spectrum255.rogueengine.runtime.ServerRuntime;
 import spectrum255.rogueengine.tool.DatapackAuthoringService;
 
 public final class RogueEngineCommands {
-	public static final String ROOT = "rogue-engine";
+	public static final String ROOT = "rogueengine";
 
 	private RogueEngineCommands() {
 	}

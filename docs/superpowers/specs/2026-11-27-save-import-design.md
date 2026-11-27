@@ -16,7 +16,7 @@
 ## 命令
 
 ```text
-/rogue-engine map snapshot import <snapshot_id> <source> <dimension> <from> <to> <include_entities> <include_block_entities>
+/rogueengine map snapshot import <snapshot_id> <source> <dimension> <from> <to> <include_entities> <include_block_entities>
 ```
 
 - 需要 admin 权限。
@@ -47,7 +47,7 @@
 - 只提取 `level.dat` 和选中维度的 `region/*.mca`、`entities/*.mca` 到世界临时目录。
 - 所有条目先校验名称：拒绝绝对路径、盘符、反斜杠、NUL、`.`/`..` 段和 Unix 符号链接模式。
 - 限制条目数、声明总大小、单文件大小、压缩比和实际提取总大小。
-- 临时目录位于 `<world>/data/rogue-engine-fabric/imports/<operation_uuid>/`，成功或失败都递归清理。
+- 临时目录位于 `<world>/data/rogueengine/imports/<operation_uuid>/`，成功或失败都递归清理。
 - ZIP 内即使包含 `session.lock` 也不提取，因此不影响导入。
 
 ## 版本与区块校验
@@ -85,7 +85,7 @@
 - 输出路径：
 
 ```text
-<world>/data/rogue-engine-fabric/map-snapshots/<namespace>/<path>.nbt
+<world>/data/rogueengine/map-snapshots/<namespace>/<path>.nbt
 ```
 
 - 完整解析和校验完成后，使用 `AtomicFiles.writeAtomic` 一次写入。

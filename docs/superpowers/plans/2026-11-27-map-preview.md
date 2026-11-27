@@ -101,7 +101,7 @@ Expected: 高度图、颜色、旋转和镜像测试通过。
 
 ```java
 Identifier.fromNamespaceAndPath(id.getNamespace(),
-        "rogue-engine-fabric/map_snapshot/" + id.getPath() + ".nbt")
+        "rogueengine/map_snapshot/" + id.getPath() + ".nbt")
 ```
 
 结构资源 ID：
@@ -189,15 +189,15 @@ Expected: 预览界面与主界面入口编译通过。
 ## Task 4：本地化、文档与验证
 
 **Files:**
-- Modify: `src/client/resources/assets/rogue-engine-fabric/lang/en_us.json`
-- Modify: `src/client/resources/assets/rogue-engine-fabric/lang/zh_cn.json`
-- Modify: `src/client/resources/assets/rogue-engine-fabric/lang/zh_tw.json`
+- Modify: `src/client/resources/assets/rogueengine/lang/en_us.json`
+- Modify: `src/client/resources/assets/rogueengine/lang/zh_cn.json`
+- Modify: `src/client/resources/assets/rogueengine/lang/zh_tw.json`
 - Modify: `docs/client-tools.md`
 - Modify: `README.md`
 
 - [x] **Step 1: 添加翻译**
 
-新增 `rogue-engine-fabric.config.preview`、`map_id`、`source`、`rotation`、`mirror`、`load`、`preview_loaded` 等键，三种语言占位符一致。
+新增 `rogueengine.config.preview`、`map_id`、`source`、`rotation`、`mirror`、`load`、`preview_loaded` 等键，三种语言占位符一致。
 
 - [x] **Step 2: 更新文档**
 

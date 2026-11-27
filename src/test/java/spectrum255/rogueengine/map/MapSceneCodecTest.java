@@ -22,7 +22,7 @@ class MapSceneCodecTest {
 		MapScene scene = parse("""
 				{
 				  "schema_version": 1,
-				  "structure_id": "rogue-engine-fabric:example_room",
+				  "structure_id": "rogueengine:example_room",
 				  "bounds": {"min": [0, 64, 0], "max": [15, 79, 15]},
 				  "anchor": [0, 64, 0],
 				  "spawn": [7, 65, 7],
@@ -36,7 +36,7 @@ class MapSceneCodecTest {
 				}
 				""").result().orElseThrow();
 
-		assertEquals("rogue-engine-fabric:example_room", scene.structureId().toString());
+		assertEquals("rogueengine:example_room", scene.structureId().toString());
 		assertEquals(new BlockPos(0, 64, 0), scene.bounds().min());
 		assertEquals(new BlockPos(15, 79, 15), scene.bounds().max());
 		assertEquals(Rotation.CLOCKWISE_90, scene.rotation());
@@ -82,7 +82,7 @@ class MapSceneCodecTest {
 		assertFalse(parse("""
 				{
 				  "schema_version": 1,
-				  "structure_id": "rogue-engine-fabric:example_room",
+				  "structure_id": "rogueengine:example_room",
 				  "bounds": {"min": [16, 64, 0], "max": [0, 79, 15]},
 				  "anchor": [0, 64, 0],
 				  "spawn": [7, 65, 7],
@@ -99,7 +99,7 @@ class MapSceneCodecTest {
 		assertFalse(parse("""
 				{
 				  "schema_version": 1,
-				  "structure_id": "rogue-engine-fabric:example_room",
+				  "structure_id": "rogueengine:example_room",
 				  "bounds": {"min": [0, 64, 0], "max": [15, 79, 15]},
 				  "anchor": [0, 64, 0],
 				  "spawn": [7, 65, 7],

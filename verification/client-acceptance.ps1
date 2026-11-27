@@ -13,7 +13,7 @@ $levelName = 'acceptance-' + [Guid]::NewGuid().ToString('N')
 $worldDir = Join-Path $serverDir $levelName
 $rconPassword = [Guid]::NewGuid().ToString('N')
 $resultFile = Join-Path $clientDir 'acceptance-result.txt'
-$packRoot = Join-Path $worldDir 'datapacks/rogue-acceptance/data/rogue-engine-fabric/rogue-engine-fabric'
+$packRoot = Join-Path $worldDir 'datapacks/rogue-acceptance/data/rogueengine/rogueengine'
 $packScene = Join-Path $packRoot 'map_scene'
 $packPool = Join-Path $packRoot 'map_pool'
 $packTemplate = Join-Path $packRoot 'worldgen_template'
@@ -38,7 +38,7 @@ $env:JAVA_HOME = $JavaHome
 if ($LASTEXITCODE -ne 0) {
     throw 'Client acceptance harness build failed.'
 }
-& (Join-Path $repo 'gradlew.bat') build
+& (Join-Path $repo 'gradlew.bat') -p $repo build
 if ($LASTEXITCODE -ne 0) {
     throw 'Main mod build failed.'
 }
@@ -47,7 +47,7 @@ $acceptanceJar = Get-ChildItem (Join-Path $repo 'verification/client-acceptance/
 if ($null -eq $acceptanceJar) {
     throw 'Client acceptance JAR is missing.'
 }
-Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-client-acceptance.jar') -Force
+Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogueengine-client-acceptance.jar') -Force
 
 @'
 {
@@ -63,7 +63,7 @@ Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-clien
 @'
 {
   "schema_version": 2,
-  "source": {"kind": "snapshot", "id": "rogue-engine-fabric:example_room"},
+  "source": {"kind": "snapshot", "id": "rogueengine:example_room"},
   "bounds": {"min": [0, 128, 0], "max": [4, 131, 4]},
   "anchor": [0, 128, 0],
   "spawn": [2, 129, 2],
@@ -77,7 +77,7 @@ Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-clien
 @'
 {
   "schema_version": 1,
-  "entries": [{"scene": "rogue-engine-fabric:acceptance_full", "weight": 1}],
+  "entries": [{"scene": "rogueengine:acceptance_full", "weight": 1}],
   "default_range": {"scenes": [], "tags": []},
   "repeat_policy": "allow",
   "refresh": {"triggers": ["manual"], "player_reset": "full"},
@@ -95,7 +95,7 @@ Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-clien
   "schema_version": 1,
   "generator_kind": "map_pool",
   "base_stem": "minecraft:overworld",
-  "map_pool": "rogue-engine-fabric:acceptance_full_pool",
+  "map_pool": "rogueengine:acceptance_full_pool",
   "default_range": {"scenes": [], "tags": []}
 }
 '@ | Set-Content (Join-Path $packTemplate 'acceptance_full_template.json') -Encoding utf8
@@ -104,7 +104,7 @@ Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-clien
 {
   "schema_version": 2,
   "dimension_type": "minecraft:overworld",
-  "generator": {"kind": "template", "id": "rogue-engine-fabric:acceptance_full_template"},
+  "generator": {"kind": "template", "id": "rogueengine:acceptance_full_template"},
   "seed": {"mode": "random"},
   "spawn": {"mode": "fixed", "x": 2.5, "y": 129.0, "z": 2.5, "yaw": 0.0},
   "border": {"center_x": 0.0, "center_z": 0.0, "initial_size": 128.0, "warning_blocks": 8.0}
@@ -128,7 +128,7 @@ Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-clien
 @'
 {
   "schema_version": 1,
-  "entries": [{"scene": "rogue-engine-fabric:acceptance_snapshot", "weight": 1}],
+  "entries": [{"scene": "rogueengine:acceptance_snapshot", "weight": 1}],
   "default_range": {"scenes": [], "tags": []},
   "repeat_policy": "allow",
   "refresh": {"triggers": ["manual"], "player_reset": "none"},
@@ -146,7 +146,7 @@ Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-clien
   "schema_version": 1,
   "generator_kind": "map_pool",
   "base_stem": "minecraft:overworld",
-  "map_pool": "rogue-engine-fabric:acceptance_snapshot_pool",
+  "map_pool": "rogueengine:acceptance_snapshot_pool",
   "default_range": {"scenes": [], "tags": []}
 }
 '@ | Set-Content (Join-Path $packTemplate 'acceptance_snapshot_template.json') -Encoding utf8
@@ -155,7 +155,7 @@ Copy-Item $acceptanceJar.FullName (Join-Path $clientDir 'mods/rogue-engine-clien
 {
   "schema_version": 2,
   "dimension_type": "minecraft:overworld",
-  "generator": {"kind": "template", "id": "rogue-engine-fabric:acceptance_snapshot_template"},
+  "generator": {"kind": "template", "id": "rogueengine:acceptance_snapshot_template"},
   "seed": {"mode": "random"},
   "spawn": {"mode": "fixed", "x": 2.5, "y": 129.0, "z": 2.5, "yaw": 0.0},
   "border": {"center_x": 0.0, "center_z": 0.0, "initial_size": 128.0, "warning_blocks": 8.0}

@@ -1,10 +1,10 @@
 {
 	"schema_version": 1,
-	"structure_id": "rogue-engine-fabric:example_room",
+	"structure_id": "rogueengine:example_room",
 	"bounds": {"min": [0, 128, 0], "max": [4, 131, 4]},
 	"anchor": [0, 128, 0],
 	"spawn": [2, 129, 2],
-	"rotation": "none",
+	"rotation": "clockwise_90",
 	"mirror": "none",
 	"processors": [],
 	"refresh": {

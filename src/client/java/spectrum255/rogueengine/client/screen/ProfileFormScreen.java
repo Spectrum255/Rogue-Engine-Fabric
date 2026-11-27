@@ -26,7 +26,7 @@ public final class ProfileFormScreen extends AbstractConfigScreen {
 	private EditBox warning;
 
 	public ProfileFormScreen(Screen parent, DraftState state) {
-		super(Component.translatable("rogue-engine-fabric.config.edit_profile"), parent, state);
+		super(Component.translatable("rogueengine.config.edit_profile"), parent, state);
 		this.profile = state.draft().profile();
 		this.fixedSeed = profile.seed().mode().equals("fixed");
 		this.fixedSpawn = profile.spawn() instanceof BoxProfile.FixedSpawn;
@@ -34,25 +34,25 @@ public final class ProfileFormScreen extends AbstractConfigScreen {
 
 	@Override
 	protected void init() {
-		addButton(20, 30, 180, "rogue-engine-fabric.config.seed_mode", () -> fixedSeed = !fixedSeed);
-		seed = field(20, 65, 180, "rogue-engine-fabric.config.seed_value",
+		addButton(20, 30, 180, "rogueengine.config.seed_mode", () -> fixedSeed = !fixedSeed);
+		seed = field(20, 65, 180, "rogueengine.config.seed_value",
 				profile.seed().value().map(Object::toString).orElse(""));
-		addButton(20, 105, 180, "rogue-engine-fabric.config.spawn_mode", () -> fixedSpawn = !fixedSpawn);
-		radius = field(20, 140, 180, "rogue-engine-fabric.config.search_radius",
+		addButton(20, 105, 180, "rogueengine.config.spawn_mode", () -> fixedSpawn = !fixedSpawn);
+		radius = field(20, 140, 180, "rogueengine.config.search_radius",
 				Integer.toString(profile.spawn() instanceof BoxProfile.SearchSpawn search ? search.radius() : 32));
-		x = field(20, 175, 180, "rogue-engine-fabric.config.spawn_x",
+		x = field(20, 175, 180, "rogueengine.config.spawn_x",
 				Double.toString(profile.spawn() instanceof BoxProfile.FixedSpawn fixed ? fixed.x() : 0));
-		y = field(20, 210, 180, "rogue-engine-fabric.config.spawn_y",
+		y = field(20, 210, 180, "rogueengine.config.spawn_y",
 				Double.toString(profile.spawn() instanceof BoxProfile.FixedSpawn fixed ? fixed.y() : 129));
-		z = field(20, 245, 180, "rogue-engine-fabric.config.spawn_z",
+		z = field(20, 245, 180, "rogueengine.config.spawn_z",
 				Double.toString(profile.spawn() instanceof BoxProfile.FixedSpawn fixed ? fixed.z() : 0));
-		yaw = field(20, 280, 180, "rogue-engine-fabric.config.yaw",
+		yaw = field(20, 280, 180, "rogueengine.config.yaw",
 				Float.toString(profile.spawn() instanceof BoxProfile.FixedSpawn fixed ? fixed.yaw() : 0));
 
-		borderX = field(220, 65, 180, "rogue-engine-fabric.config.border_x", Double.toString(profile.border().centerX()));
-		borderZ = field(220, 100, 180, "rogue-engine-fabric.config.border_z", Double.toString(profile.border().centerZ()));
-		borderSize = field(220, 135, 180, "rogue-engine-fabric.config.border_size", Double.toString(profile.border().initialSize()));
-		warning = field(220, 170, 180, "rogue-engine-fabric.config.warning_blocks", Double.toString(profile.border().warningBlocks()));
+		borderX = field(220, 65, 180, "rogueengine.config.border_x", Double.toString(profile.border().centerX()));
+		borderZ = field(220, 100, 180, "rogueengine.config.border_z", Double.toString(profile.border().centerZ()));
+		borderSize = field(220, 135, 180, "rogueengine.config.border_size", Double.toString(profile.border().initialSize()));
+		warning = field(220, 170, 180, "rogueengine.config.warning_blocks", Double.toString(profile.border().warningBlocks()));
 
 		addButton(20, 330, 180, "gui.apply", this::apply);
 		addButton(width / 2 - 100, height - 50, 200, "gui.done", this::onClose);
@@ -72,7 +72,7 @@ public final class ProfileFormScreen extends AbstractConfigScreen {
 			ConfigDraft draft = state.draft();
 			state.draft(new ConfigDraft(draft.packName(), draft.namespace(), draft.templateId(), draft.profileId(),
 					draft.template(), updated));
-			setStatus("rogue-engine-fabric.config.applied");
+			setStatus("rogueengine.config.applied");
 		} catch (RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}

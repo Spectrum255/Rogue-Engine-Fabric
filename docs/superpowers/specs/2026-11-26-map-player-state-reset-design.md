@@ -43,7 +43,7 @@
 状态文件路径：
 
 ```text
-<world>/data/rogue-engine-fabric/scenes/<instance_uuid>/players/<player_uuid>.dat
+<world>/data/rogueengine/scenes/<instance_uuid>/players/<player_uuid>.dat
 ```
 
 文件使用版本化 gzip 压缩 NBT，字段包含：

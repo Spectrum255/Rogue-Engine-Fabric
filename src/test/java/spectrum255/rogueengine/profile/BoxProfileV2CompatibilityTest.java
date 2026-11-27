@@ -47,7 +47,7 @@ class BoxProfileV2CompatibilityTest {
 				  "dimension_type": "minecraft:overworld",
 				  "generator": {
 				    "kind": "template",
-				    "id": "rogue-engine-fabric:noise_chaos",
+				    "id": "rogueengine:noise_chaos",
 				    "overrides": {"density_offset": 0.1},
 				    "preset": "wild"
 				  },
@@ -59,7 +59,7 @@ class BoxProfileV2CompatibilityTest {
 
 		assertEquals(2, profile.schemaVersion());
 		BoxProfile.TemplateGenerator generator = assertInstanceOf(BoxProfile.TemplateGenerator.class, profile.generator());
-		assertEquals("rogue-engine-fabric:noise_chaos", generator.id().toString());
+		assertEquals("rogueengine:noise_chaos", generator.id().toString());
 		assertEquals(0.1, generator.overrides().get("density_offset"));
 		assertEquals("wild", generator.preset().orElseThrow());
 	}

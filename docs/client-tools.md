@@ -22,22 +22,22 @@ Rogue Engine 提供可选的 Mod Menu 配置界面。专用服务器无需安装
 界面保存到：
 
 ```text
-config/rogue-engine-fabric/datapacks/<pack_name>/
+config/rogueengine/datapacks/<pack_name>/
 ```
 
 每个数据包包含：
 
 ```text
 pack.mcmeta
-data/<namespace>/rogue-engine-fabric/worldgen_template/<template_id>.json
-data/<namespace>/rogue-engine-fabric/profile/<profile_id>.json
+data/<namespace>/rogueengine/worldgen_template/<template_id>.json
+data/<namespace>/rogueengine/profile/<profile_id>.json
 ```
 
 模组的 `ProfileCatalog` 和 `WorldGenTemplateCatalog` 会在动态注册表未命中时读取本地目录。因此保存后无需重启即可使用：
 
 ```text
-/rogue-engine profile list
-/rogue-engine instance create <namespace>:<profile_id> [name]
+/rogueengine profile list
+/rogueengine instance create <namespace>:<profile_id> [name]
 ```
 
 动态注册表中的同 ID 条目优先，本地条目不会覆盖已加载的数据包。已有箱庭使用创建时保存的快照，不受之后编辑影响。
@@ -51,16 +51,16 @@ data/<namespace>/rogue-engine-fabric/profile/<profile_id>.json
 3. 由控制台、RCON 或其他非玩家 owner 源执行：
 
 ```text
-/rogue-engine admin datapack import <pack_name> <zip_path>
+/rogueengine admin datapack import <pack_name> <zip_path>
 ```
 
-4. 使用 `/rogue-engine profile list` 检查本地 Profile，然后创建箱庭。
+4. 使用 `/rogueengine profile list` 检查本地 Profile，然后创建箱庭。
 
 ZIP 只接受 `pack.mcmeta` 和以下两类 JSON：
 
 ```text
-data/<namespace>/rogue-engine-fabric/worldgen_template/<path>.json
-data/<namespace>/rogue-engine-fabric/profile/<path>.json
+data/<namespace>/rogueengine/worldgen_template/<path>.json
+data/<namespace>/rogueengine/profile/<path>.json
 ```
 
 导入会拒绝路径穿越、盘符、反斜杠、NUL、`.`/`..`、符号链接、非法 JSON、非法 Codec 和已存在的 pack 名。暂存目录在成功或失败后都会清理。
@@ -80,13 +80,13 @@ data/<namespace>/rogue-engine-fabric/profile/<path>.json
 从配置主界面点击“地图预览”，输入快照或结构 ID：
 
 ```text
-snapshot: rogue-engine-fabric:example_room
-structure: rogue-engine-fabric:example_room
+snapshot: rogueengine:example_room
+structure: rogueengine:example_room
 ```
 
 预览来源、旋转和镜像均可切换。预览规则：
 
-- 快照优先读取单机世界受管目录 `data/rogue-engine-fabric/map-snapshots/`，然后读取数据包 `data/<namespace>/rogue-engine-fabric/map_snapshot/`。
+- 快照优先读取单机世界受管目录 `data/rogueengine/map-snapshots/`，然后读取数据包 `data/<namespace>/rogueengine/map_snapshot/`。
 - 结构读取数据包 `data/<namespace>/structure/`。
 - 预览使用每个 X/Z 列最高非空气方块的 MapColor，不启动额外世界。
 - 预览不显示实体、方块实体内容或结构处理器结果。

@@ -34,7 +34,7 @@ public final class TemplateFormScreen extends AbstractConfigScreen {
 	private EditBox edgeNoise;
 
 	public TemplateFormScreen(Screen parent, DraftState state) {
-		super(Component.translatable("rogue-engine-fabric.config.edit_template"), parent, state);
+		super(Component.translatable("rogueengine.config.edit_template"), parent, state);
 		this.template = state.draft().template();
 		this.kindIndex = Math.max(0, KINDS.indexOf(template.generatorKind()));
 		this.boundaryEnabled = template.terrainBoundary() != null;
@@ -48,27 +48,27 @@ public final class TemplateFormScreen extends AbstractConfigScreen {
 
 	@Override
 	protected void init() {
-		addButton(20, 30, 180, "rogue-engine-fabric.config.generator_kind", () -> {
+		addButton(20, 30, 180, "rogueengine.config.generator_kind", () -> {
 			kindIndex = (kindIndex + 1) % KINDS.size();
-			setStatus("rogue-engine-fabric.config.selected", KINDS.get(kindIndex));
+			setStatus("rogueengine.config.selected", KINDS.get(kindIndex));
 		});
-		addButton(20, 58, 180, "rogue-engine-fabric.config.boundary_toggle", () -> boundaryEnabled = !boundaryEnabled);
-		centerX = field(20, 90, 180, "rogue-engine-fabric.config.center_x", boundaryValue(template.terrainBoundary() == null ? 0 : template.terrainBoundary().centerX()));
-		centerZ = field(20, 125, 180, "rogue-engine-fabric.config.center_z", boundaryValue(template.terrainBoundary() == null ? 0 : template.terrainBoundary().centerZ()));
-		radiusX = field(20, 160, 180, "rogue-engine-fabric.config.radius_x", boundaryValue(template.terrainBoundary() == null ? 128 : template.terrainBoundary().radiusX()));
-		radiusZ = field(20, 195, 180, "rogue-engine-fabric.config.radius_z", boundaryValue(template.terrainBoundary() == null ? 128 : template.terrainBoundary().radiusZ()));
-		addButton(20, 230, 180, "rogue-engine-fabric.config.shape", () -> shape = shape == TerrainBoundary.Shape.CIRCLE
+		addButton(20, 58, 180, "rogueengine.config.boundary_toggle", () -> boundaryEnabled = !boundaryEnabled);
+		centerX = field(20, 90, 180, "rogueengine.config.center_x", boundaryValue(template.terrainBoundary() == null ? 0 : template.terrainBoundary().centerX()));
+		centerZ = field(20, 125, 180, "rogueengine.config.center_z", boundaryValue(template.terrainBoundary() == null ? 0 : template.terrainBoundary().centerZ()));
+		radiusX = field(20, 160, 180, "rogueengine.config.radius_x", boundaryValue(template.terrainBoundary() == null ? 128 : template.terrainBoundary().radiusX()));
+		radiusZ = field(20, 195, 180, "rogueengine.config.radius_z", boundaryValue(template.terrainBoundary() == null ? 128 : template.terrainBoundary().radiusZ()));
+		addButton(20, 230, 180, "rogueengine.config.shape", () -> shape = shape == TerrainBoundary.Shape.CIRCLE
 				? TerrainBoundary.Shape.ELLIPSE : TerrainBoundary.Shape.CIRCLE);
-		addButton(20, 255, 180, "rogue-engine-fabric.config.outside_mode", () -> outsideMode = outsideMode == TerrainBoundary.OutsideMode.VOID
+		addButton(20, 255, 180, "rogueengine.config.outside_mode", () -> outsideMode = outsideMode == TerrainBoundary.OutsideMode.VOID
 				? TerrainBoundary.OutsideMode.BEDROCK_FLOOR : TerrainBoundary.OutsideMode.VOID);
 
-		addButton(220, 30, 180, "rogue-engine-fabric.config.island_toggle", () -> islandEnabled = !islandEnabled);
-		centerY = field(220, 65, 180, "rogue-engine-fabric.config.center_y", Integer.toString(template.island() == null ? 128 : template.island().centerY()));
-		thickness = field(220, 100, 180, "rogue-engine-fabric.config.thickness", Integer.toString(template.island() == null ? 64 : template.island().maxThickness()));
-		taper = field(220, 135, 180, "rogue-engine-fabric.config.bottom_taper", boundaryValue(template.island() == null ? 1.5 : template.island().bottomTaper()));
-		roughness = field(220, 170, 180, "rogue-engine-fabric.config.surface_roughness", boundaryValue(template.island() == null ? 4 : template.island().surfaceRoughness()));
-		edgeNoise = field(220, 205, 180, "rogue-engine-fabric.config.edge_noise", boundaryValue(template.island() == null ? 0.35 : template.island().edgeNoise()));
-		addButton(220, 240, 180, "rogue-engine-fabric.config.surface_mode", () -> surfaceMode = surfaceMode == CentralIslandSettings.SurfaceMode.VANILLA_SURFACE
+		addButton(220, 30, 180, "rogueengine.config.island_toggle", () -> islandEnabled = !islandEnabled);
+		centerY = field(220, 65, 180, "rogueengine.config.center_y", Integer.toString(template.island() == null ? 128 : template.island().centerY()));
+		thickness = field(220, 100, 180, "rogueengine.config.thickness", Integer.toString(template.island() == null ? 64 : template.island().maxThickness()));
+		taper = field(220, 135, 180, "rogueengine.config.bottom_taper", boundaryValue(template.island() == null ? 1.5 : template.island().bottomTaper()));
+		roughness = field(220, 170, 180, "rogueengine.config.surface_roughness", boundaryValue(template.island() == null ? 4 : template.island().surfaceRoughness()));
+		edgeNoise = field(220, 205, 180, "rogueengine.config.edge_noise", boundaryValue(template.island() == null ? 0.35 : template.island().edgeNoise()));
+		addButton(220, 240, 180, "rogueengine.config.surface_mode", () -> surfaceMode = surfaceMode == CentralIslandSettings.SurfaceMode.VANILLA_SURFACE
 				? CentralIslandSettings.SurfaceMode.CUSTOM_LAYERS : CentralIslandSettings.SurfaceMode.VANILLA_SURFACE);
 
 		addButton(20, 310, 180, "gui.apply", this::apply);
@@ -88,7 +88,7 @@ public final class TemplateFormScreen extends AbstractConfigScreen {
 			ConfigDraft draft = state.draft();
 			state.draft(new ConfigDraft(draft.packName(), draft.namespace(), draft.templateId(), draft.profileId(),
 					updated, draft.profile()));
-			setStatus("rogue-engine-fabric.config.applied");
+			setStatus("rogueengine.config.applied");
 		} catch (RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}

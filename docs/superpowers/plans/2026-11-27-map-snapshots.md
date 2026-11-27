@@ -251,7 +251,7 @@ Expected: 往返和重复位置测试通过。
 @Test
 void loadsWorldSnapshotAndComputesHash(@TempDir Path world) throws IOException {
 	MapSnapshot snapshot = snapshot();
-	Path file = world.resolve("data/rogue-engine-fabric/map-snapshots/example/room.nbt");
+	Path file = world.resolve("data/rogueengine/map-snapshots/example/room.nbt");
 	Files.createDirectories(file.getParent());
 	NbtIo.writeCompressed(MapSnapshotCodec.write(snapshot, registries()), file);
 	MapSnapshotCatalog catalog = new MapSnapshotCatalog(world, registries(), id -> {
@@ -284,7 +284,7 @@ public final class MapSnapshotCatalog {
 	private final Function<Identifier, Optional<byte[]>> dataPackReader;
 
 	public Optional<Loaded> load(Identifier id) throws IOException {
-		Path worldFile = worldRoot.resolve("data/rogue-engine-fabric/map-snapshots")
+		Path worldFile = worldRoot.resolve("data/rogueengine/map-snapshots")
 				.resolve(id.getNamespace()).resolve(id.getPath() + ".nbt");
 		AtomicFiles.verifyManagedPath(worldRoot, worldFile);
 		byte[] bytes = Files.exists(worldFile, LinkOption.NOFOLLOW_LINKS)
@@ -318,7 +318,7 @@ public final class MapSnapshotCatalog {
 }
 ```
 
-数据包 ResourceManager 路径为 `rogue-engine-fabric/map_snapshot/<path>.nbt`。读取前后检查压缩文件大小，拒绝符号链接和重解析点。
+数据包 ResourceManager 路径为 `rogueengine/map_snapshot/<path>.nbt`。读取前后检查压缩文件大小，拒绝符号链接和重解析点。
 
 - [ ] **Step 4: 运行测试确认通过**
 
@@ -581,7 +581,7 @@ if (scene.source().kind() == MapScene.SourceKind.SNAPSHOT) {
 ```java
 id -> {
 	Identifier resource = Identifier.fromNamespaceAndPath(id.getNamespace(),
-			"rogue-engine-fabric/map_snapshot/" + id.getPath() + ".nbt");
+			"rogueengine/map_snapshot/" + id.getPath() + ".nbt");
 	try (InputStream input = server.getResourceManager().open(resource)) {
 		return Optional.of(input.readAllBytes());
 	} catch (IOException exception) {
@@ -599,11 +599,11 @@ Expected: 来源持久化、创建和刷新相关测试通过。
 ## Task 8：内置快照资源与服务端冒烟
 
 **Files:**
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/map_snapshot/example_room.nbt`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/map_scene/example_room_snapshot.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/map_pool/example_snapshot_pool.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/map_pool_snapshot.json`
-- Create: `src/main/resources/data/rogue-engine-fabric/rogue-engine-fabric/profile/map_pool_snapshot.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/map_snapshot/example_room.nbt`
+- Create: `src/main/resources/data/rogueengine/rogueengine/map_scene/example_room_snapshot.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/map_pool/example_snapshot_pool.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/worldgen_template/map_pool_snapshot.json`
+- Create: `src/main/resources/data/rogueengine/rogueengine/profile/map_pool_snapshot.json`
 - Create: `verification/generate-example-snapshot.py`
 - Modify: `verification/server-smoke.ps1`
 - Create: `src/test/java/spectrum255/rogueengine/map/BuiltInSnapshotResourceTest.java`

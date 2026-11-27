@@ -1,6 +1,6 @@
 {
 	"schema_version": 2,
-	"source": {"kind": "snapshot", "id": "rogue-engine-fabric:example_room"},
+	"source": {"kind": "snapshot", "id": "rogueengine:example_room"},
 	"bounds": {"min": [0, 128, 0], "max": [4, 131, 4]},
 	"anchor": [0, 128, 0],
 	"spawn": [2, 129, 2],

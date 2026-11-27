@@ -44,19 +44,19 @@ class BuiltInTemplateResourceTest {
 	void builtInProfilesReferenceTheirTemplates() throws IOException {
 		for (String name : java.util.List.of("noise_chaos", "full_chaos", "preset_chaos", "bounded_noise",
 				"central_island", "central_island_layers")) {
-			String path = "/data/rogue-engine-fabric/rogue-engine-fabric/profile/" + name + ".json";
+			String path = "/data/rogueengine/rogueengine/profile/" + name + ".json";
 			try (InputStream input = BuiltInTemplateResourceTest.class.getResourceAsStream(path)) {
 				assertNotNull(input, "Missing built-in profile: " + path);
 				BoxProfile profile = BoxProfileCodec.CODEC.parse(JsonOps.INSTANCE,
 						JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8))).getOrThrow();
 				BoxProfile.TemplateGenerator generator = assertInstanceOf(BoxProfile.TemplateGenerator.class, profile.generator());
-				assertEquals("rogue-engine-fabric:" + name, generator.id().toString());
+				assertEquals("rogueengine:" + name, generator.id().toString());
 			}
 		}
 	}
 
 	private WorldGenTemplate readTemplate(String name) throws IOException {
-		String path = "/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/" + name + ".json";
+		String path = "/data/rogueengine/rogueengine/worldgen_template/" + name + ".json";
 		try (InputStream input = BuiltInTemplateResourceTest.class.getResourceAsStream(path)) {
 			assertNotNull(input, "Missing built-in worldgen template: " + path);
 			return WorldGenTemplateCodec.CODEC.parse(JsonOps.INSTANCE,

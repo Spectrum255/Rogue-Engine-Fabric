@@ -35,7 +35,7 @@ public final class MapSnapshotCatalog {
 	}
 
 	public Optional<Loaded> load(Identifier id) throws IOException {
-		Path worldFile = worldRoot.resolve("data/rogue-engine-fabric/map-snapshots")
+		Path worldFile = worldRoot.resolve("data/rogueengine/map-snapshots")
 				.resolve(id.getNamespace()).resolve(id.getPath() + ".nbt");
 		AtomicFiles.verifyManagedPath(worldRoot, worldFile);
 		byte[] bytes = Files.exists(worldFile, LinkOption.NOFOLLOW_LINKS)

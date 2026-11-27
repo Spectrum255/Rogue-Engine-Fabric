@@ -38,9 +38,9 @@ class DatapackAuthoringServiceTest {
 
 		assertTrue(Files.isRegularFile(pack.resolve("pack.mcmeta")));
 		assertTrue(Files.isRegularFile(pack.resolve(
-				"data/example/rogue-engine-fabric/worldgen_template/my_world.json")));
+				"data/example/rogueengine/worldgen_template/my_world.json")));
 		assertTrue(Files.isRegularFile(pack.resolve(
-				"data/example/rogue-engine-fabric/profile/my_world.json")));
+				"data/example/rogueengine/profile/my_world.json")));
 		assertEquals(draft.template(), service.templates().get(draft.templateId()));
 		assertEquals(draft.profile(), service.profiles().get(draft.profileId()));
 	}
@@ -73,7 +73,7 @@ class DatapackAuthoringServiceTest {
 		Path invalid = temp.resolve("invalid.zip");
 		try (ZipArchiveOutputStream out = new ZipArchiveOutputStream(invalid.toFile())) {
 			entry(out, "pack.mcmeta", "{\"pack\":{\"pack_format\":121}}");
-			entry(out, "data/example/rogue-engine-fabric/worldgen_template/broken.json", "{}");
+			entry(out, "data/example/rogueengine/worldgen_template/broken.json", "{}");
 		}
 		assertThrows(IOException.class, () -> service.importZip(invalid, "invalid_pack"));
 		assertFalse(Files.exists(temp.resolve("datapacks/invalid_pack")));

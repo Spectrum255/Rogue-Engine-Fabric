@@ -53,28 +53,28 @@ class BuiltInMapResourceTest {
 
 	@Test
 	void builtInProfileReferencesMapPoolTemplate() throws IOException {
-		String path = "/data/rogue-engine-fabric/rogue-engine-fabric/profile/map_pool.json";
+		String path = "/data/rogueengine/rogueengine/profile/map_pool.json";
 		try (InputStream input = BuiltInMapResourceTest.class.getResourceAsStream(path)) {
 			assertNotNull(input, "Missing built-in map pool profile: " + path);
 			BoxProfile profile = BoxProfileCodec.CODEC.parse(JsonOps.INSTANCE,
 					JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8))).getOrThrow();
 			BoxProfile.TemplateGenerator generator = assertInstanceOf(BoxProfile.TemplateGenerator.class, profile.generator());
-			assertEquals("rogue-engine-fabric:map_pool", generator.id().toString());
+			assertEquals("rogueengine:map_pool", generator.id().toString());
 		}
 	}
 
 	@Test
 	void builtInTemplateReferencesPoolAndStructureLoadsAtDeclaredBounds() throws Exception {
-		String path = "/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/map_pool.json";
+		String path = "/data/rogueengine/rogueengine/worldgen_template/map_pool.json";
 		try (InputStream input = BuiltInMapResourceTest.class.getResourceAsStream(path)) {
 			assertNotNull(input, "Missing built-in map pool template: " + path);
 			WorldGenTemplate template = WorldGenTemplateCodec.CODEC.parse(JsonOps.INSTANCE,
 					JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8))).getOrThrow();
 			assertEquals("map_pool", template.generatorKind());
-			assertEquals("rogue-engine-fabric:example_pool", template.mapPoolId().toString());
+			assertEquals("rogueengine:example_pool", template.mapPoolId().toString());
 		}
 		try (InputStream structure = BuiltInMapResourceTest.class.getResourceAsStream(
-				"/data/rogue-engine-fabric/structure/example_room.nbt")) {
+				"/data/rogueengine/structure/example_room.nbt")) {
 			assertNotNull(structure, "Missing built-in example structure");
 			CompoundTag tag = NbtIo.readCompressed(structure, NbtAccounter.create(16 * 1024 * 1024));
 			StructureTemplate template = new StructureTemplate();
@@ -96,7 +96,7 @@ class BuiltInMapResourceTest {
 	}
 
 	private MapScene readScene(String name) throws IOException {
-		String path = "/data/rogue-engine-fabric/rogue-engine-fabric/map_scene/" + name + ".json";
+		String path = "/data/rogueengine/rogueengine/map_scene/" + name + ".json";
 		try (InputStream input = BuiltInMapResourceTest.class.getResourceAsStream(path)) {
 			assertNotNull(input, "Missing built-in map scene: " + path);
 			return MapSceneCodec.CODEC.parse(JsonOps.INSTANCE,
@@ -105,7 +105,7 @@ class BuiltInMapResourceTest {
 	}
 
 	private MapPool readPool() throws IOException {
-		String path = "/data/rogue-engine-fabric/rogue-engine-fabric/map_pool/example_pool.json";
+		String path = "/data/rogueengine/rogueengine/map_pool/example_pool.json";
 		try (InputStream input = BuiltInMapResourceTest.class.getResourceAsStream(path)) {
 			assertNotNull(input, "Missing built-in map pool: " + path);
 			return MapPoolCodec.CODEC.parse(JsonOps.INSTANCE,

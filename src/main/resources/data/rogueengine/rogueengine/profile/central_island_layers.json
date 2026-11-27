@@ -3,10 +3,10 @@
 	"dimension_type": "minecraft:overworld",
 	"generator": {
 		"kind": "template",
-		"id": "rogue-engine-fabric:preset_chaos"
+		"id": "rogueengine:central_island_layers"
 	},
 	"seed": {"mode": "random"},
-	"spawn": {"mode": "search", "radius": 32},
+	"spawn": {"mode": "fixed", "x": 0.5, "y": 129.0, "z": 0.5, "yaw": 0.0},
 	"border": {
 		"center_x": 0.0,
 		"center_z": 0.0,

@@ -1,11 +1,10 @@
 {
 	"schema_version": 1,
 	"entries": [
-		{"scene": "rogue-engine-fabric:example_room", "weight": 1},
-		{"scene": "rogue-engine-fabric:example_room_alt", "weight": 1}
+		{"scene": "rogueengine:example_room_snapshot", "weight": 1}
 	],
 	"default_range": {"scenes": [], "tags": []},
-	"repeat_policy": "cycle_no_repeat",
+	"repeat_policy": "allow",
 	"refresh": {
 		"triggers": ["manual", "on_empty"],
 		"player_reset": "none"

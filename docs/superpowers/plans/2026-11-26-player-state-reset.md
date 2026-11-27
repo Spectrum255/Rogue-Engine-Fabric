@@ -957,7 +957,7 @@ Expected: 全部通过。
 - 首次进入建立每玩家生存状态基线。
 - 刷新后下次进入恢复生命、饥饿、饱和、耗尽、氧气、经验和状态效果。
 - 背包、末影箱、位置不变。
-- 状态文件位于 `<world>/data/rogue-engine-fabric/scenes/<instance_uuid>/players/<player_uuid>.dat`。
+- 状态文件位于 `<world>/data/rogueengine/scenes/<instance_uuid>/players/<player_uuid>.dat`。
 - 状态文件损坏时取消进入；箱庭内重连恢复失败时断开连接。
 
 删除“当前只实现 none”和“full 尚未实现”的限制描述。
@@ -979,7 +979,7 @@ Expected: 地图创建、刷新、归档、恢复通过，服务端无新增错�
 1. 将一个测试场景的 `refresh.player_reset` 设为 `full` 并重载数据包。
 2. 创建地图箱庭，首次进入并记录生命、饥饿、氧气、经验和状态效果。
 3. 修改这些状态后离开箱庭。
-4. 箱庭无玩家时执行 `/rogue-engine instance reset <uuid>`。
+4. 箱庭无玩家时执行 `/rogueengine instance reset <uuid>`。
 5. 再次进入，确认恢复首次基线，背包和位置仍按原策略处理。
 6. 重复刷新并重连，确认基线不变化、无重复恢复错误。
 不要求截图；记录服务器日志和验收结果。

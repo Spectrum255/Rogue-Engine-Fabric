@@ -31,7 +31,7 @@
 路径：
 
 ```text
-data/<pack_namespace>/rogue-engine-fabric/map_scene/<scene_id>.json
+data/<pack_namespace>/rogueengine/map_scene/<scene_id>.json
 ```
 
 场景定义包含：
@@ -49,7 +49,7 @@ data/<pack_namespace>/rogue-engine-fabric/map_scene/<scene_id>.json
 路径：
 
 ```text
-data/<pack_namespace>/rogue-engine-fabric/map_pool/<pool_id>.json
+data/<pack_namespace>/rogueengine/map_pool/<pool_id>.json
 ```
 
 地图集定义包含：
@@ -172,7 +172,7 @@ RESETTING -> RECOVERY_REQUIRED
 
 - ZIP 导入拒绝路径穿越、符号链接和目录外写入。
 - 限制解压总大小、文件数量、单个 NBT 大小、场景尺寸和实体数量。
-- 场景缓存只能写入 `<world>/data/rogue-engine-fabric/scenes/<instance_uuid>/`。
+- 场景缓存只能写入 `<world>/data/rogueengine/scenes/<instance_uuid>/`。
 - 销毁箱庭时场景缓存随维度库存进入隔离区。
 - 专用服务器不开放客户端任意文件路径写入。
 

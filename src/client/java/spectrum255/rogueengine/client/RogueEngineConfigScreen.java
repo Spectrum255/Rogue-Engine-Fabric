@@ -41,40 +41,40 @@ public final class RogueEngineConfigScreen extends AbstractConfigScreen {
 	private EditBox libraryId;
 
 	public RogueEngineConfigScreen(Screen parent, DraftState state) {
-		super(Component.translatable("rogue-engine-fabric.config.title"), parent, state);
+		super(Component.translatable("rogueengine.config.title"), parent, state);
 	}
 
 	@Override
 	protected void init() {
 		localIds = state.service().templates().keySet().stream().sorted().toList();
-		packName = field(20, 30, 180, "rogue-engine-fabric.config.pack_name", state.draft().packName());
-		namespace = field(220, 30, 180, "rogue-engine-fabric.config.namespace", state.draft().namespace());
-		templateId = field(20, 75, 180, "rogue-engine-fabric.config.template_id", state.draft().templateId().toString());
-		profileId = field(220, 75, 180, "rogue-engine-fabric.config.profile_id", state.draft().profileId().toString());
+		packName = field(20, 30, 180, "rogueengine.config.pack_name", state.draft().packName());
+		namespace = field(220, 30, 180, "rogueengine.config.namespace", state.draft().namespace());
+		templateId = field(20, 75, 180, "rogueengine.config.template_id", state.draft().templateId().toString());
+		profileId = field(220, 75, 180, "rogueengine.config.profile_id", state.draft().profileId().toString());
 
 		int y = 125;
 		for (int i = 0; i < builtIns.size(); i++) {
 			String name = builtIns.get(i);
-			addButton(20, y + i * 25, 180, "rogue-engine-fabric.config.load_" + name, () -> loadBuiltIn(name));
+			addButton(20, y + i * 25, 180, "rogueengine.config.load_" + name, () -> loadBuiltIn(name));
 		}
-		addButton(220, y, 180, "rogue-engine-fabric.config.edit_template",
+		addButton(220, y, 180, "rogueengine.config.edit_template",
 				() -> minecraft.setScreenAndShow(new TemplateFormScreen(this, state)));
-		addButton(220, y + 25, 180, "rogue-engine-fabric.config.edit_profile",
+		addButton(220, y + 25, 180, "rogueengine.config.edit_profile",
 				() -> minecraft.setScreenAndShow(new ProfileFormScreen(this, state)));
-		addButton(220, y + 50, 180, "rogue-engine-fabric.config.edit_json",
+		addButton(220, y + 50, 180, "rogueengine.config.edit_json",
 				() -> minecraft.setScreenAndShow(new JsonEditorScreen(this, state)));
-		addButton(220, y + 75, 180, "rogue-engine-fabric.config.transfer",
+		addButton(220, y + 75, 180, "rogueengine.config.transfer",
 				() -> minecraft.setScreenAndShow(new TransferScreen(this, state)));
-		addButton(220, y + 100, 180, "rogue-engine-fabric.config.apply_ids", this::applyIds);
-		addButton(220, y + 125, 180, "rogue-engine-fabric.config.save", this::save);
+		addButton(220, y + 100, 180, "rogueengine.config.apply_ids", this::applyIds);
+		addButton(220, y + 125, 180, "rogueengine.config.save", this::save);
 
-		libraryId = field(20, 300, 250, "rogue-engine-fabric.config.library_id", "");
-		addButton(280, 312, 120, "rogue-engine-fabric.config.load_local", this::loadLocal);
-		addButton(20, 350, 180, "rogue-engine-fabric.config.refresh", () -> {
+		libraryId = field(20, 300, 250, "rogueengine.config.library_id", "");
+		addButton(280, 312, 120, "rogueengine.config.load_local", this::loadLocal);
+		addButton(20, 350, 180, "rogueengine.config.refresh", () -> {
 			localIds = state.service().templates().keySet().stream().sorted().toList();
-			setStatus("rogue-engine-fabric.config.refreshed");
+			setStatus("rogueengine.config.refreshed");
 		});
-		addButton(220, 350, 180, "rogue-engine-fabric.config.preview",
+		addButton(220, 350, 180, "rogueengine.config.preview",
 				() -> minecraft.setScreenAndShow(new MapPreviewScreen(this, state)));
 		addButton(width / 2 - 100, height - 50, 200, "gui.done", this::onClose);
 	}
@@ -82,7 +82,7 @@ public final class RogueEngineConfigScreen extends AbstractConfigScreen {
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
 		super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-		graphics.text(font, Component.translatable("rogue-engine-fabric.config.local_library"), 420, 120, 0xFFFFFF);
+		graphics.text(font, Component.translatable("rogueengine.config.local_library"), 420, 120, 0xFFFFFF);
 		for (int i = 0; i < Math.min(localIds.size(), 12); i++) {
 			graphics.text(font, localIds.get(i).toString(), 420, 136 + i * 12, 0xCCCCCC);
 		}
@@ -100,7 +100,7 @@ public final class RogueEngineConfigScreen extends AbstractConfigScreen {
 					draft.profile().seed(), draft.profile().spawn(), draft.profile().border(), draft.profile().inventory());
 			state.draft(new ConfigDraft(packName.getValue().trim(), newNamespace, newTemplateId,
 					newProfileId, draft.template(), profile));
-			setStatus("rogue-engine-fabric.config.applied");
+			setStatus("rogueengine.config.applied");
 		} catch (RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}
@@ -112,7 +112,7 @@ public final class RogueEngineConfigScreen extends AbstractConfigScreen {
 			ConfigDraft draft = state.draft();
 			state.service().save(draft);
 			localIds = state.service().templates().keySet().stream().sorted().toList();
-			setStatus("rogue-engine-fabric.config.saved", draft.packName());
+			setStatus("rogueengine.config.saved", draft.packName());
 		} catch (IOException | RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}
@@ -120,9 +120,9 @@ public final class RogueEngineConfigScreen extends AbstractConfigScreen {
 
 	private void loadBuiltIn(String name) {
 		try {
-			WorldGenTemplate template = read("/data/rogue-engine-fabric/rogue-engine-fabric/worldgen_template/" + name + ".json",
+			WorldGenTemplate template = read("/data/rogueengine/rogueengine/worldgen_template/" + name + ".json",
 					WorldGenTemplateCodec.CODEC);
-			BoxProfile builtInProfile = read("/data/rogue-engine-fabric/rogue-engine-fabric/profile/" + name + ".json",
+			BoxProfile builtInProfile = read("/data/rogueengine/rogueengine/profile/" + name + ".json",
 					BoxProfileCodec.CODEC);
 			ConfigDraft current = state.draft();
 			BoxProfile.TemplateGenerator generator = (BoxProfile.TemplateGenerator) builtInProfile.generator();
@@ -135,7 +135,7 @@ public final class RogueEngineConfigScreen extends AbstractConfigScreen {
 			namespace.setValue(current.namespace());
 			templateId.setValue(current.templateId().toString());
 			profileId.setValue(current.profileId().toString());
-			setStatus("rogue-engine-fabric.config.loaded", name);
+			setStatus("rogueengine.config.loaded", name);
 		} catch (IOException | RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}
@@ -161,7 +161,7 @@ public final class RogueEngineConfigScreen extends AbstractConfigScreen {
 			namespace.setValue(id.getNamespace());
 			templateId.setValue(id.toString());
 			profileId.setValue(id.toString());
-			setStatus("rogue-engine-fabric.config.loaded", id.toString());
+			setStatus("rogueengine.config.loaded", id.toString());
 		} catch (RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}

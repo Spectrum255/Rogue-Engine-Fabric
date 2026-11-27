@@ -3,7 +3,7 @@
 	"dimension_type": "minecraft:overworld",
 	"generator": {
 		"kind": "template",
-		"id": "rogue-engine-fabric:full_chaos"
+		"id": "rogueengine:noise_chaos"
 	},
 	"seed": {"mode": "random"},
 	"spawn": {"mode": "search", "radius": 32},

@@ -23,14 +23,14 @@ public final class JsonEditorScreen extends AbstractConfigScreen {
 	private EditBox profileJson;
 
 	public JsonEditorScreen(Screen parent, DraftState state) {
-		super(Component.translatable("rogue-engine-fabric.config.edit_json"), parent, state);
+		super(Component.translatable("rogueengine.config.edit_json"), parent, state);
 	}
 
 	@Override
 	protected void init() {
-		templateJson = jsonField(40, "rogue-engine-fabric.config.template_json",
+		templateJson = jsonField(40, "rogueengine.config.template_json",
 				GSON.toJson(WorldGenTemplateCodec.CODEC.encodeStart(JsonOps.INSTANCE, state.draft().template()).getOrThrow()));
-		profileJson = jsonField(190, "rogue-engine-fabric.config.profile_json",
+		profileJson = jsonField(190, "rogueengine.config.profile_json",
 				GSON.toJson(BoxProfileCodec.CODEC.encodeStart(JsonOps.INSTANCE, state.draft().profile()).getOrThrow()));
 		addButton(20, 340, 180, "gui.apply", this::apply);
 		addButton(width / 2 - 100, height - 50, 200, "gui.done", this::onClose);
@@ -39,8 +39,8 @@ public final class JsonEditorScreen extends AbstractConfigScreen {
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
 		super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-		graphics.text(font, Component.translatable("rogue-engine-fabric.config.template_json"), 20, 28, 0xFFFFFF);
-		graphics.text(font, Component.translatable("rogue-engine-fabric.config.profile_json"), 20, 178, 0xFFFFFF);
+		graphics.text(font, Component.translatable("rogueengine.config.template_json"), 20, 28, 0xFFFFFF);
+		graphics.text(font, Component.translatable("rogueengine.config.profile_json"), 20, 178, 0xFFFFFF);
 	}
 
 	private EditBox jsonField(int y, String key, String value) {
@@ -62,7 +62,7 @@ public final class JsonEditorScreen extends AbstractConfigScreen {
 					draft.profileId(), template, profile);
 			updated.validate().getOrThrow();
 			state.draft(updated);
-			setStatus("rogue-engine-fabric.config.applied");
+			setStatus("rogueengine.config.applied");
 		} catch (RuntimeException exception) {
 			setStatusMessage(Component.literal(exception.getMessage()));
 		}

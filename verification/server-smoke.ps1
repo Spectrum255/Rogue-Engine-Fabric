@@ -10,7 +10,7 @@ $runDir = Join-Path $repo 'build/server-smoke'
 $levelName = 'smoke-' + [Guid]::NewGuid().ToString('N')
 $rconPassword = [Guid]::NewGuid().ToString('N')
 $worldDir = Join-Path $runDir $levelName
-$packDir = Join-Path $worldDir 'datapacks/rogue-smoke/data/rogue-engine-fabric/rogue-engine-fabric/profile'
+$packDir = Join-Path $worldDir 'datapacks/rogue-smoke/data/rogueengine/rogueengine/profile'
 New-Item -ItemType Directory -Path $packDir -Force | Out-Null
 New-Item -ItemType Directory -Path (Join-Path $runDir 'mods') -Force | Out-Null
 @'
@@ -65,8 +65,8 @@ motd=Rogue Engine Smoke
 "@ | Set-Content (Join-Path $packDir 'isolated.json') -Encoding utf8
 
 $localPackRoot = Join-Path $runDir 'local-pack-source'
-$localTemplateDir = Join-Path $localPackRoot 'data/example/rogue-engine-fabric/worldgen_template'
-$localProfileDir = Join-Path $localPackRoot 'data/example/rogue-engine-fabric/profile'
+$localTemplateDir = Join-Path $localPackRoot 'data/example/rogueengine/worldgen_template'
+$localProfileDir = Join-Path $localPackRoot 'data/example/rogueengine/profile'
 New-Item -ItemType Directory -Path $localTemplateDir,$localProfileDir -Force | Out-Null
 @'
 {
@@ -156,72 +156,72 @@ try {
         throw 'Timed out waiting for server RCON.'
     }
 
-    $profiles = Invoke-Rcon 'rogue-engine profile list'
-    if ($profiles -notlike '*rogue-engine-fabric:smoke*' -or $profiles -notlike '*rogue-engine-fabric:isolated*' -or $profiles -notlike '*rogue-engine-fabric:noise_chaos*' -or $profiles -notlike '*rogue-engine-fabric:full_chaos*' -or $profiles -notlike '*rogue-engine-fabric:preset_chaos*' -or $profiles -notlike '*rogue-engine-fabric:bounded_noise*' -or $profiles -notlike '*rogue-engine-fabric:central_island*' -or $profiles -notlike '*rogue-engine-fabric:map_pool*') {
+    $profiles = Invoke-Rcon 'rogueengine profile list'
+    if ($profiles -notlike '*rogueengine:smoke*' -or $profiles -notlike '*rogueengine:isolated*' -or $profiles -notlike '*rogueengine:noise_chaos*' -or $profiles -notlike '*rogueengine:full_chaos*' -or $profiles -notlike '*rogueengine:preset_chaos*' -or $profiles -notlike '*rogueengine:bounded_noise*' -or $profiles -notlike '*rogueengine:central_island*' -or $profiles -notlike '*rogueengine:map_pool*') {
         throw "Profiles were not loaded: $profiles"
     }
     $localZip = (Join-Path $runDir 'local-pack.zip').Replace('\', '/')
-    $localImport = Invoke-Rcon "rogue-engine admin datapack import local_smoke `"$localZip`""
+    $localImport = Invoke-Rcon "rogueengine admin datapack import local_smoke `"$localZip`""
     if ($localImport -notlike 'Imported local datapack local_smoke') {
         throw "Local datapack import failed: $localImport"
     }
-    $localCreated = Invoke-Rcon 'rogue-engine instance create example:local_smoke Local Pack Box'
+    $localCreated = Invoke-Rcon 'rogueengine instance create example:local_smoke Local Pack Box'
     if ($localCreated -notmatch 'Created box ([0-9a-f-]{36})') {
         throw "Local datapack box creation failed: $localCreated"
     }
     $localId = $Matches[1]
-    $localArchived = Invoke-Rcon "rogue-engine instance archive $localId"
+    $localArchived = Invoke-Rcon "rogueengine instance archive $localId"
     if ($localArchived -notlike "Archived $localId") {
         throw "Local datapack box archive failed: $localArchived"
     }
-    $created = Invoke-Rcon 'rogue-engine instance create rogue-engine-fabric:smoke Smoke Box'
+    $created = Invoke-Rcon 'rogueengine instance create rogueengine:smoke Smoke Box'
     if ($created -notmatch 'Created box ([0-9a-f-]{36})') {
         throw "Box creation failed: $created"
     }
     $id = $Matches[1]
-    $info = Invoke-Rcon "rogue-engine instance info $id"
+    $info = Invoke-Rcon "rogueengine instance info $id"
     if ($info -notlike '*state=ACTIVE*') {
         throw "Created box is not active: $info"
     }
-    $archived = Invoke-Rcon "rogue-engine instance archive $id"
+    $archived = Invoke-Rcon "rogueengine instance archive $id"
     if ($archived -notlike "Archived $id") {
         throw "Box archive failed: $archived"
     }
-    $restored = Invoke-Rcon "rogue-engine instance restore $id"
+    $restored = Invoke-Rcon "rogueengine instance restore $id"
     if ($restored -notlike "Restored $id") {
         throw "Box restore failed: $restored"
     }
-    $isolated = Invoke-Rcon 'rogue-engine instance create rogue-engine-fabric:isolated Isolated Box'
+    $isolated = Invoke-Rcon 'rogueengine instance create rogueengine:isolated Isolated Box'
     if ($isolated -notmatch 'Created box ([0-9a-f-]{36})') {
         throw "Isolated box creation failed: $isolated"
     }
     $isolatedId = $Matches[1]
-    $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+    $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
     $definition = $catalog.instances | Where-Object { $_.uuid -eq $isolatedId } | Select-Object -First 1
     $snapshot = $definition.definition.profile_json | ConvertFrom-Json
     if ($snapshot.inventory.bring_on_enter -ne $false -or $snapshot.inventory.take_on_exit -ne $false) {
         throw 'Isolated inventory policy was not captured in the box definition snapshot.'
     }
-    $isolatedArchived = Invoke-Rcon "rogue-engine instance archive $isolatedId"
+    $isolatedArchived = Invoke-Rcon "rogueengine instance archive $isolatedId"
     if ($isolatedArchived -notlike "Archived $isolatedId") {
         throw "Isolated box archive failed: $isolatedArchived"
     }
     $templateIds = @()
     foreach ($templateName in @('noise_chaos', 'full_chaos', 'preset_chaos', 'bounded_noise', 'central_island', 'central_island_layers')) {
-        $templateCreated = Invoke-Rcon "rogue-engine instance create rogue-engine-fabric:$templateName $templateName Box"
+        $templateCreated = Invoke-Rcon "rogueengine instance create rogueengine:$templateName $templateName Box"
         if ($templateCreated -notmatch 'Created box ([0-9a-f-]{36})') {
             throw "$templateName box creation failed: $templateCreated"
         }
         $templateId = $Matches[1]
         $templateIds += $templateId
-        $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+        $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
         $templateDefinition = $catalog.instances | Where-Object { $_.uuid -eq $templateId } | Select-Object -First 1
         $templateSnapshot = $templateDefinition.definition.profile_json | ConvertFrom-Json
         if ($templateSnapshot.generator.kind -ne 'inline') {
             throw "$templateName generator was not materialized into the box snapshot."
         }
         if ($templateName -eq 'bounded_noise') {
-            if (-not $templateDefinition.definition.level_stem_json.Contains('rogue-engine-fabric:bounded_noise')) {
+            if (-not $templateDefinition.definition.level_stem_json.Contains('rogueengine:bounded_noise')) {
                 throw 'Bounded noise generator was not persisted in the level stem snapshot.'
             }
             if ($templateSnapshot.border.initial_size -ne 256) {
@@ -229,7 +229,7 @@ try {
             }
         }
         if ($templateName -like 'central_island*') {
-            if (-not $templateDefinition.definition.level_stem_json.Contains('rogue-engine-fabric:central_island')) {
+            if (-not $templateDefinition.definition.level_stem_json.Contains('rogueengine:central_island')) {
                 throw 'Central island generator was not persisted in the level stem snapshot.'
             }
             if ($templateSnapshot.border.initial_size -ne 512) {
@@ -243,27 +243,27 @@ try {
                 throw 'Central island custom layers were not persisted in the level stem snapshot.'
             }
         }
-        $templateArchived = Invoke-Rcon "rogue-engine instance archive $templateId"
+        $templateArchived = Invoke-Rcon "rogueengine instance archive $templateId"
         if ($templateArchived -notlike "Archived $templateId") {
             throw "$templateName box archive failed: $templateArchived"
         }
-        $templateRestored = Invoke-Rcon "rogue-engine instance restore $templateId"
+        $templateRestored = Invoke-Rcon "rogueengine instance restore $templateId"
         if ($templateRestored -notlike "Restored $templateId") {
             throw "$templateName box restore failed: $templateRestored"
         }
-        $templateRearchived = Invoke-Rcon "rogue-engine instance archive $templateId"
+        $templateRearchived = Invoke-Rcon "rogueengine instance archive $templateId"
         if ($templateRearchived -notlike "Archived $templateId") {
             throw "$templateName re-archive failed: $templateRearchived"
         }
     }
-    $mapCreated = Invoke-Rcon 'rogue-engine instance create rogue-engine-fabric:map_pool create-map rogue-engine-fabric:example_room'
+    $mapCreated = Invoke-Rcon 'rogueengine instance create rogueengine:map_pool create-map rogueengine:example_room'
     if ($mapCreated -notmatch 'Preparing box ([0-9a-f-]{36})') {
         throw "Map pool box creation failed: $mapCreated"
     }
     $mapId = $Matches[1]
     $mapActive = $false
     for ($i = 0; $i -lt 60; $i++) {
-        $mapInfo = Invoke-Rcon "rogue-engine instance info $mapId"
+        $mapInfo = Invoke-Rcon "rogueengine instance info $mapId"
         if ($mapInfo -like '*state=ACTIVE*') {
             $mapActive = $true
             break
@@ -276,18 +276,18 @@ try {
     if (-not $mapActive) {
         throw 'Map pool box did not become active.'
     }
-    $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+    $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
     $mapDefinition = $catalog.instances | Where-Object { $_.uuid -eq $mapId } | Select-Object -First 1
-    if ($null -eq $mapDefinition.definition.scene_snapshot -or $mapDefinition.definition.scene_snapshot.scene_id -ne 'rogue-engine-fabric:example_room') {
+    if ($null -eq $mapDefinition.definition.scene_snapshot -or $mapDefinition.definition.scene_snapshot.scene_id -ne 'rogueengine:example_room') {
         throw 'Map pool selection was not persisted in the box definition.'
     }
-    $reset = Invoke-Rcon "rogue-engine instance reset $mapId"
+    $reset = Invoke-Rcon "rogueengine instance reset $mapId"
     if ($reset -notlike "Resetting box $mapId") {
         throw "Map reset failed: $reset"
     }
     $mapActive = $false
     for ($i = 0; $i -lt 60; $i++) {
-        $mapInfo = Invoke-Rcon "rogue-engine instance info $mapId"
+        $mapInfo = Invoke-Rcon "rogueengine instance info $mapId"
         if ($mapInfo -like '*state=ACTIVE*') {
             $mapActive = $true
             break
@@ -300,27 +300,27 @@ try {
     if (-not $mapActive) {
         throw 'Map pool box did not become active after reset.'
     }
-    $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+    $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
     $mapDefinition = $catalog.instances | Where-Object { $_.uuid -eq $mapId } | Select-Object -First 1
     if ($mapDefinition.definition.scene_snapshot.reset_count -ne 1) {
         throw 'Map reset count was not persisted.'
     }
-    $mapArchived = Invoke-Rcon "rogue-engine instance archive $mapId"
+    $mapArchived = Invoke-Rcon "rogueengine instance archive $mapId"
     if ($mapArchived -notlike "Archived $mapId") {
         throw "Map pool box archive failed: $mapArchived"
     }
-    $mapRestored = Invoke-Rcon "rogue-engine instance restore $mapId"
+    $mapRestored = Invoke-Rcon "rogueengine instance restore $mapId"
     if ($mapRestored -notlike "Restored $mapId") {
         throw "Map pool box restore failed: $mapRestored"
     }
-    $snapshotCreated = Invoke-Rcon 'rogue-engine instance create rogue-engine-fabric:map_pool_snapshot Snapshot Box'
+    $snapshotCreated = Invoke-Rcon 'rogueengine instance create rogueengine:map_pool_snapshot Snapshot Box'
     if ($snapshotCreated -notmatch 'Preparing box ([0-9a-f-]{36})') {
         throw "Snapshot box creation failed: $snapshotCreated"
     }
     $snapshotId = $Matches[1]
     $snapshotActive = $false
     for ($i = 0; $i -lt 60; $i++) {
-        $snapshotInfo = Invoke-Rcon "rogue-engine instance info $snapshotId"
+        $snapshotInfo = Invoke-Rcon "rogueengine instance info $snapshotId"
         if ($snapshotInfo -like '*state=ACTIVE*') {
             $snapshotActive = $true
             break
@@ -333,19 +333,19 @@ try {
     if (-not $snapshotActive) {
         throw 'Snapshot box did not become active.'
     }
-    $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+    $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
     $snapshotDefinition = $catalog.instances | Where-Object { $_.uuid -eq $snapshotId } | Select-Object -First 1
     if ($snapshotDefinition.definition.scene_snapshot.hashes.source_kind -ne 'snapshot' -or
-        $snapshotDefinition.definition.scene_snapshot.hashes.source_id -ne 'rogue-engine-fabric:example_room') {
+        $snapshotDefinition.definition.scene_snapshot.hashes.source_id -ne 'rogueengine:example_room') {
         throw 'Snapshot source metadata was not persisted.'
     }
-    $snapshotReset = Invoke-Rcon "rogue-engine instance reset $snapshotId"
+    $snapshotReset = Invoke-Rcon "rogueengine instance reset $snapshotId"
     if ($snapshotReset -notlike "Resetting box $snapshotId") {
         throw "Snapshot reset failed: $snapshotReset"
     }
     $snapshotActive = $false
     for ($i = 0; $i -lt 60; $i++) {
-        $snapshotInfo = Invoke-Rcon "rogue-engine instance info $snapshotId"
+        $snapshotInfo = Invoke-Rcon "rogueengine instance info $snapshotId"
         if ($snapshotInfo -like '*state=ACTIVE*') {
             $snapshotActive = $true
             break
@@ -358,20 +358,20 @@ try {
     if (-not $snapshotActive) {
         throw 'Snapshot box did not become active after reset.'
     }
-    $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+    $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
     $snapshotDefinition = $catalog.instances | Where-Object { $_.uuid -eq $snapshotId } | Select-Object -First 1
     if ($snapshotDefinition.definition.scene_snapshot.reset_count -ne 1) {
         throw 'Snapshot reset count was not persisted.'
     }
-    $snapshotArchived = Invoke-Rcon "rogue-engine instance archive $snapshotId"
+    $snapshotArchived = Invoke-Rcon "rogueengine instance archive $snapshotId"
     if ($snapshotArchived -notlike "Archived $snapshotId") {
         throw "Snapshot box archive failed: $snapshotArchived"
     }
-    $snapshotRestored = Invoke-Rcon "rogue-engine instance restore $snapshotId"
+    $snapshotRestored = Invoke-Rcon "rogueengine instance restore $snapshotId"
     if ($snapshotRestored -notlike "Restored $snapshotId") {
         throw "Snapshot box restore failed: $snapshotRestored"
     }
-    $null = Invoke-Rcon 'rogue-engine admin stats'
+    $null = Invoke-Rcon 'rogueengine admin stats'
     Write-Output "Server smoke test passed: $id (isolated=$isolatedId, templates=$($templateIds -join ','), map=$mapId, snapshot=$snapshotId)"
     Write-Output "Logs: $logDir"
 } finally {

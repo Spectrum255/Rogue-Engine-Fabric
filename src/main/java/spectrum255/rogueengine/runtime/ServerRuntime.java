@@ -70,7 +70,7 @@ public final class ServerRuntime {
 		Path worldRoot = this.sceneCache.root().getParent().getParent();
 		this.snapshots = new MapSnapshotCatalog(worldRoot, server.registryAccess(), id -> {
 			Identifier resource = Identifier.fromNamespaceAndPath(id.getNamespace(),
-					"rogue-engine-fabric/map_snapshot/" + id.getPath() + ".nbt");
+					"rogueengine/map_snapshot/" + id.getPath() + ".nbt");
 			try (InputStream input = server.getResourceManager().open(resource)) {
 				return Optional.of(input.readAllBytes());
 			} catch (IOException exception) {

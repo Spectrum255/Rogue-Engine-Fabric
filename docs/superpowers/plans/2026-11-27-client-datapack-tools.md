@@ -21,8 +21,8 @@
 - 26.3 Screen 使用 `extractRenderState(GuiGraphicsExtractor, int, int, float)`。
 - `EditBox(Font, int, int, int, int, Component)` 与 `Button.builder(...).bounds(...).build()` 可用。
 - Fabric Loader 配置目录在客户端/服务端工作目录下为 `config/`。
-- 本地数据包根目录固定为 `config/rogue-engine-fabric/datapacks/`。
-- ZIP 导入复用 `SafeZipExtractor`，只允许 `pack.mcmeta` 与 `data/<namespace>/rogue-engine-fabric/{worldgen_template,profile}/<path>.json`。
+- 本地数据包根目录固定为 `config/rogueengine/datapacks/`。
+- ZIP 导入复用 `SafeZipExtractor`，只允许 `pack.mcmeta` 与 `data/<namespace>/rogueengine/{worldgen_template,profile}/<path>.json`。
 
 ## Task 1：客户端入口与 Mod Menu API 锁定
 
@@ -94,9 +94,9 @@ void savesValidatedTemplateAndProfileAtomically() throws IOException {
 
     assertTrue(Files.isRegularFile(pack.resolve("pack.mcmeta")));
     assertTrue(Files.isRegularFile(pack.resolve(
-            "data/example/rogue-engine-fabric/worldgen_template/my_world.json")));
+            "data/example/rogueengine/worldgen_template/my_world.json")));
     assertTrue(Files.isRegularFile(pack.resolve(
-            "data/example/rogue-engine-fabric/profile/my_world.json")));
+            "data/example/rogueengine/profile/my_world.json")));
     assertEquals(draft.template(), service.templates().get(draft.templateId()).orElseThrow());
     assertEquals(draft.profile(), service.profiles().get(draft.profileId()).orElseThrow());
 }
@@ -177,7 +177,7 @@ public Map<Identifier, BoxProfile> profiles()
 - 调用 `draft.validate()`。
 - 目标为 `configRoot/<packName>/`。
 - 写 `pack.mcmeta`，`pack_format=121`。
-- 使用 `JsonOps` 编码模板与 Profile，路径分别为 `data/<ns>/rogue-engine-fabric/worldgen_template/<path>.json` 和 `profile/<path>.json`。
+- 使用 `JsonOps` 编码模板与 Profile，路径分别为 `data/<ns>/rogueengine/worldgen_template/<path>.json` 和 `profile/<path>.json`。
 - 每个文件使用 `AtomicFiles.writeAtomic`，失败不留下半成品 JSON。
 
 `exportZip`：
@@ -313,15 +313,15 @@ Expected: Mod Menu 入口与所有 Screen 编译通过。
 ## Task 5：本地化、文档与验证
 
 **Files:**
-- Create: `src/client/resources/assets/rogue-engine-fabric/lang/en_us.json`
-- Create: `src/client/resources/assets/rogue-engine-fabric/lang/zh_cn.json`
-- Create: `src/client/resources/assets/rogue-engine-fabric/lang/zh_tw.json`
+- Create: `src/client/resources/assets/rogueengine/lang/en_us.json`
+- Create: `src/client/resources/assets/rogueengine/lang/zh_cn.json`
+- Create: `src/client/resources/assets/rogueengine/lang/zh_tw.json`
 - Create: `docs/client-tools.md`
 - Modify: `README.md`
 
 - [ ] **Step 1: 添加三种语言**
 
-所有按钮、标签和状态消息使用 `Component.translatable`，键名统一为 `rogue-engine-fabric.config.*`。三种语言占位符与顺序一致。
+所有按钮、标签和状态消息使用 `Component.translatable`，键名统一为 `rogueengine.config.*`。三种语言占位符与顺序一致。
 
 - [ ] **Step 2: 更新文档**
 

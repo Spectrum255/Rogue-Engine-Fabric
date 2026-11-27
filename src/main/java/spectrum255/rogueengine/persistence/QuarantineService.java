@@ -22,7 +22,7 @@ public final class QuarantineService {
 
 	public QuarantineService(Path worldRoot, int retentionDays, LongSupplier clock) {
 		this.worldRoot = worldRoot.toAbsolutePath().normalize();
-		this.quarantineRoot = this.worldRoot.resolve("rogue-engine-fabric").resolve("quarantine");
+		this.quarantineRoot = this.worldRoot.resolve("rogueengine").resolve("quarantine");
 		this.retentionDays = retentionDays;
 		this.clock = clock;
 	}

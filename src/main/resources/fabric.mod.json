@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "rogue-engine-fabric",
+	"id": "rogueengine",
 	"version": "${version}",
 	"name": "Rogue Engine Fabric",
 	"description": "数据包驱动的服务端动态箱庭维度引擎。",
@@ -18,7 +18,7 @@
 		]
 	},
 	"mixins": [
-		"rogue-engine-fabric.mixins.json"
+		"rogueengine.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.20.1",

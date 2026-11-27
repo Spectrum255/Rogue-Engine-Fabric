@@ -86,26 +86,26 @@ public final class ClientAcceptance implements ClientModInitializer {
 				}
 				case 2 -> {
 					if (stageTicks < 20) return;
-					send(client, "rogue-engine map snapshot capture example:captured 0 128 0 4 129 4");
+					send(client, "rogueengine map snapshot capture example:captured 0 128 0 4 129 4");
 					nextStage();
 				}
 				case 3 -> {
 					if (!Files.isRegularFile(snapshotFile())) return;
-					send(client, "rogue-engine instance create rogue-engine-fabric:acceptance_snapshot " + SNAPSHOT_NAME);
+					send(client, "rogueengine instance create rogueengine:acceptance_snapshot " + SNAPSHOT_NAME);
 					nextStage();
 				}
 				case 4 -> {
 					JsonObject instance = instance(SNAPSHOT_NAME);
 					if (instance == null || !"ACTIVE".equals(instance.get("state").getAsString())) return;
 					snapshotId = instance.get("uuid").getAsString();
-					send(client, "rogue-engine instance teleport " + snapshotId);
+					send(client, "rogueengine instance teleport " + snapshotId);
 					nextStage();
 				}
 				case 5 -> {
 					if (!insideInstance(client, snapshotId) || stageTicks < 20) return;
 					if (snapshotReady(client)) {
 						System.out.println("ACCEPTANCE_SNAPSHOT_OK");
-						send(client, "rogue-engine instance evacuate " + snapshotId);
+						send(client, "rogueengine instance evacuate " + snapshotId);
 						nextStage();
 					} else if (stageTicks > 600) {
 						BlockPos playerPos = client.player.blockPosition();
@@ -117,20 +117,20 @@ public final class ClientAcceptance implements ClientModInitializer {
 				}
 				case 6 -> {
 					if (insideInstance(client, snapshotId) || stageTicks < 10) return;
-					send(client, "rogue-engine instance archive " + snapshotId);
+					send(client, "rogueengine instance archive " + snapshotId);
 					nextStage();
 				}
 				case 7 -> {
 					if (stageTicks < 20) return;
 					send(client, "gamemode survival @s");
-					send(client, "rogue-engine instance create rogue-engine-fabric:acceptance_full " + FULL_NAME);
+					send(client, "rogueengine instance create rogueengine:acceptance_full " + FULL_NAME);
 					nextStage();
 				}
 				case 8 -> {
 					JsonObject instance = instance(FULL_NAME);
 					if (instance == null || !"ACTIVE".equals(instance.get("state").getAsString())) return;
 					fullId = instance.get("uuid").getAsString();
-					send(client, "rogue-engine instance teleport " + fullId);
+					send(client, "rogueengine instance teleport " + fullId);
 					nextStage();
 				}
 				case 9 -> {
@@ -151,12 +151,12 @@ public final class ClientAcceptance implements ClientModInitializer {
 						fail(client, "FULL test state did not change before reset");
 						return;
 					}
-					send(client, "rogue-engine instance evacuate " + fullId);
+					send(client, "rogueengine instance evacuate " + fullId);
 					nextStage();
 				}
 				case 11 -> {
 					if (insideInstance(client, fullId) || stageTicks < 10) return;
-					send(client, "rogue-engine instance reset " + fullId);
+					send(client, "rogueengine instance reset " + fullId);
 					nextStage();
 				}
 				case 12 -> {
@@ -165,7 +165,7 @@ public final class ClientAcceptance implements ClientModInitializer {
 					JsonObject definition = instance.getAsJsonObject("definition");
 					JsonObject scene = definition.getAsJsonObject("scene_snapshot");
 					if (scene == null || scene.get("reset_count").getAsInt() < 1) return;
-					send(client, "rogue-engine instance teleport " + fullId);
+					send(client, "rogueengine instance teleport " + fullId);
 					nextStage();
 				}
 				case 13 -> {
@@ -204,7 +204,7 @@ public final class ClientAcceptance implements ClientModInitializer {
 
 	private JsonObject instance(String name) {
 		try {
-			Path catalog = worldDir.resolve("data/rogue-engine-fabric/catalog-v1.json");
+			Path catalog = worldDir.resolve("data/rogueengine/catalog-v1.json");
 			if (!Files.isRegularFile(catalog)) return null;
 			JsonElement root = JsonParser.parseString(Files.readString(catalog));
 			for (JsonElement element : root.getAsJsonObject().getAsJsonArray("instances")) {
@@ -219,7 +219,7 @@ public final class ClientAcceptance implements ClientModInitializer {
 	}
 
 	private Path snapshotFile() {
-		return worldDir.resolve("data/rogue-engine-fabric/map-snapshots/example/captured.nbt");
+		return worldDir.resolve("data/rogueengine/map-snapshots/example/captured.nbt");
 	}
 
 	private static boolean insideInstance(Minecraft client, String id) {

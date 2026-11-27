@@ -10,7 +10,7 @@ $runDir = Join-Path $repo 'build/save-import-smoke'
 $levelName = 'import-' + [Guid]::NewGuid().ToString('N')
 $rconPassword = [Guid]::NewGuid().ToString('N')
 $worldDir = Join-Path $runDir $levelName
-$packRoot = Join-Path $worldDir 'datapacks/rogue-import/data/rogue-engine-fabric/rogue-engine-fabric'
+$packRoot = Join-Path $worldDir 'datapacks/rogue-import/data/rogueengine/rogueengine'
 $packProfile = Join-Path $packRoot 'profile'
 $packTemplate = Join-Path $packRoot 'worldgen_template'
 $packPool = Join-Path $packRoot 'map_pool'
@@ -44,7 +44,7 @@ if ($LASTEXITCODE -ne 0) {
 {
   "schema_version": 1,
   "entries": [
-    {"scene": "rogue-engine-fabric:imported_scene", "weight": 1}
+    {"scene": "rogueengine:imported_scene", "weight": 1}
   ],
   "default_range": {"scenes": [], "tags": []},
   "repeat_policy": "allow",
@@ -66,7 +66,7 @@ if ($LASTEXITCODE -ne 0) {
   "schema_version": 1,
   "generator_kind": "map_pool",
   "base_stem": "minecraft:overworld",
-  "map_pool": "rogue-engine-fabric:imported_pool",
+  "map_pool": "rogueengine:imported_pool",
   "default_range": {"scenes": [], "tags": []}
 }
 '@ | Set-Content (Join-Path $packTemplate 'imported_template.json') -Encoding utf8
@@ -94,7 +94,7 @@ if ($LASTEXITCODE -ne 0) {
   "dimension_type": "minecraft:overworld",
   "generator": {
     "kind": "template",
-    "id": "rogue-engine-fabric:imported_template"
+    "id": "rogueengine:imported_template"
   },
   "seed": {"mode": "random"},
   "spawn": {"mode": "fixed", "x": 2.0, "y": 129.0, "z": 2.0, "yaw": 0.0},
@@ -162,7 +162,7 @@ function Invoke-Rcon([string]$Command) {
 
 function Wait-ForActive([string]$Id) {
     for ($i = 0; $i -lt 60; $i++) {
-        $info = Invoke-Rcon "rogue-engine instance info $Id"
+        $info = Invoke-Rcon "rogueengine instance info $Id"
         if ($info -like '*state=ACTIVE*') {
             return $info
         }
@@ -192,12 +192,12 @@ try {
         throw 'Timed out waiting for server RCON.'
     }
 
-    $folderImport = Invoke-Rcon 'rogue-engine map snapshot import example:imported "import-source" minecraft:overworld 0 128 0 4 128 4 true true'
+    $folderImport = Invoke-Rcon 'rogueengine map snapshot import example:imported "import-source" minecraft:overworld 0 128 0 4 128 4 true true'
     if ($folderImport -notmatch 'sha256=([0-9a-f]{64}) blocks=25 block_entities=1 entities=1') {
         throw "Folder import failed: $folderImport"
     }
     $folderHash = $Matches[1]
-    $zipImport = Invoke-Rcon 'rogue-engine map snapshot import example:imported_zip "save-import.zip" minecraft:overworld 0 128 0 4 128 4 true true'
+    $zipImport = Invoke-Rcon 'rogueengine map snapshot import example:imported_zip "save-import.zip" minecraft:overworld 0 128 0 4 128 4 true true'
     if ($zipImport -notmatch 'sha256=([0-9a-f]{64}) blocks=25 block_entities=1 entities=1') {
         throw "ZIP import failed: $zipImport"
     }
@@ -206,7 +206,7 @@ try {
         throw "Folder and ZIP import hashes differ: $folderHash != $zipHash"
     }
 
-    $snapshotDir = Join-Path $worldDir 'data/rogue-engine-fabric/map-snapshots/example'
+    $snapshotDir = Join-Path $worldDir 'data/rogueengine/map-snapshots/example'
     $folderSnapshot = Join-Path $snapshotDir 'imported.nbt'
     $zipSnapshot = Join-Path $snapshotDir 'imported_zip.nbt'
     if (-not (Test-Path $folderSnapshot) -or -not (Test-Path $zipSnapshot)) {
@@ -217,38 +217,38 @@ try {
         throw 'Imported snapshot file hashes do not match command output.'
     }
 
-    $created = Invoke-Rcon 'rogue-engine instance create rogue-engine-fabric:imported Imported Box'
+    $created = Invoke-Rcon 'rogueengine instance create rogueengine:imported Imported Box'
     if ($created -notmatch 'Preparing box ([0-9a-f-]{36})') {
         throw "Imported box creation failed: $created"
     }
     $id = $Matches[1]
     $null = Wait-ForActive $id
 
-    $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+    $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
     $definition = $catalog.instances | Where-Object { $_.uuid -eq $id } | Select-Object -First 1
     if ($null -eq $definition.definition.scene_snapshot -or
-        $definition.definition.scene_snapshot.scene_id -ne 'rogue-engine-fabric:imported_scene' -or
+        $definition.definition.scene_snapshot.scene_id -ne 'rogueengine:imported_scene' -or
         $definition.definition.scene_snapshot.hashes.source_kind -ne 'snapshot' -or
         $definition.definition.scene_snapshot.hashes.source_id -ne 'example:imported') {
         throw 'Imported snapshot source metadata was not persisted.'
     }
 
-    $reset = Invoke-Rcon "rogue-engine instance reset $id"
+    $reset = Invoke-Rcon "rogueengine instance reset $id"
     if ($reset -notlike "Resetting box $id") {
         throw "Imported box reset failed: $reset"
     }
     $null = Wait-ForActive $id
-    $catalog = Get-Content (Join-Path $worldDir 'data/rogue-engine-fabric/catalog-v1.json') -Raw | ConvertFrom-Json
+    $catalog = Get-Content (Join-Path $worldDir 'data/rogueengine/catalog-v1.json') -Raw | ConvertFrom-Json
     $definition = $catalog.instances | Where-Object { $_.uuid -eq $id } | Select-Object -First 1
     if ($definition.definition.scene_snapshot.reset_count -ne 1) {
         throw 'Imported box reset count was not persisted.'
     }
 
-    $archived = Invoke-Rcon "rogue-engine instance archive $id"
+    $archived = Invoke-Rcon "rogueengine instance archive $id"
     if ($archived -notlike "Archived $id") {
         throw "Imported box archive failed: $archived"
     }
-    $restored = Invoke-Rcon "rogue-engine instance restore $id"
+    $restored = Invoke-Rcon "rogueengine instance restore $id"
     if ($restored -notlike "Restored $id") {
         throw "Imported box restore failed: $restored"
     }

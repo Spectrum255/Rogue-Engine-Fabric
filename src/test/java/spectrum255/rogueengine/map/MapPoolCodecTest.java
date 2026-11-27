@@ -17,8 +17,8 @@ class MapPoolCodecTest {
 				{
 				  "schema_version": 1,
 				  "entries": [
-				    {"scene": "rogue-engine-fabric:room_a", "weight": 3},
-				    {"scene": "rogue-engine-fabric:room_b", "weight": 1}
+				    {"scene": "rogueengine:room_a", "weight": 3},
+				    {"scene": "rogueengine:room_b", "weight": 1}
 				  ],
 				  "default_range": {"scenes": [], "tags": []},
 				  "repeat_policy": "cycle_no_repeat",
@@ -56,7 +56,7 @@ class MapPoolCodecTest {
 		assertFalse(parse("""
 				{
 				  "schema_version": 1,
-				  "entries": [{"scene": "rogue-engine-fabric:room_a", "weight": -1}],
+				  "entries": [{"scene": "rogueengine:room_a", "weight": -1}],
 				  "default_range": {"scenes": [], "tags": []},
 				  "repeat_policy": "allow",
 				  "refresh": {"triggers": ["manual"], "player_reset": "none"},
@@ -71,8 +71,8 @@ class MapPoolCodecTest {
 				{
 				  "schema_version": 1,
 				  "entries": [
-				    {"scene": "rogue-engine-fabric:room_a", "weight": 1},
-				    {"scene": "rogue-engine-fabric:room_a", "weight": 2}
+				    {"scene": "rogueengine:room_a", "weight": 1},
+				    {"scene": "rogueengine:room_a", "weight": 2}
 				  ],
 				  "default_range": {"scenes": [], "tags": []},
 				  "repeat_policy": "allow",

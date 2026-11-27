@@ -18,8 +18,8 @@ import net.minecraft.resources.Identifier;
 class ServerOnlyMetadataTest {
 	@Test
 	void modIdentityUsesOneNamespace() {
-		assertEquals("rogue-engine-fabric", RogueEngineFabric.MOD_ID);
-		assertEquals(Identifier.fromNamespaceAndPath("rogue-engine-fabric", "profile"), RogueEngineFabric.id("profile"));
+		assertEquals("rogueengine", RogueEngineFabric.MOD_ID);
+		assertEquals(Identifier.fromNamespaceAndPath("rogueengine", "profile"), RogueEngineFabric.id("profile"));
 	}
 
 	@Test
