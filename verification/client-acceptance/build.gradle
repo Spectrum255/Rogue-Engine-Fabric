@@ -1,0 +1,38 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version '1.19-SNAPSHOT'
+}
+
+repositories {
+}
+
+loom {
+	mods {
+		"rogue-engine-client-acceptance" {
+			sourceSet sourceSets.main
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:26.3"
+	implementation "net.fabricmc:fabric-loader:0.20.1"
+	implementation "net.fabricmc.fabric-api:fabric-api:0.167.0+26.3"
+}
+
+def modVersion = project.version
+
+processResources {
+	inputs.property "version", modVersion
+	filesMatching("fabric.mod.json") {
+		expand "version": modVersion
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}

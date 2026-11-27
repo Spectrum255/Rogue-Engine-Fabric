@@ -1,0 +1,56 @@
+{
+	"schema_version": 1,
+	"generator_kind": "preset_chaos",
+	"base_stem": "minecraft:overworld",
+	"ranges": {
+		"density_offset": {"min": -0.8, "max": 0.8},
+		"density_scale": {"min": 0.5, "max": 1.8},
+		"ridge_scale": {"min": 0.5, "max": 1.8},
+		"continent_scale": {"min": 0.5, "max": 1.8},
+		"erosion_scale": {"min": 0.5, "max": 1.8},
+		"temperature_shift": {"min": -0.5, "max": 0.5},
+		"vegetation_shift": {"min": -0.5, "max": 0.5},
+		"sea_level_offset": {"min": -32, "max": 32}
+	},
+	"presets": [
+		{
+			"name": "wild",
+			"parameters": {
+				"density_offset": 0.25,
+				"density_scale": 1.25,
+				"ridge_scale": 1.4,
+				"continent_scale": 0.8,
+				"erosion_scale": 1.1,
+				"temperature_shift": 0.15,
+				"vegetation_shift": -0.1,
+				"sea_level_offset": 4
+			}
+		},
+		{
+			"name": "hollow",
+			"parameters": {
+				"density_offset": -0.45,
+				"density_scale": 0.75,
+				"ridge_scale": 1.6,
+				"continent_scale": 1.3,
+				"erosion_scale": 0.65,
+				"temperature_shift": -0.2,
+				"vegetation_shift": 0.2,
+				"sea_level_offset": -8
+			}
+		},
+		{
+			"name": "extreme",
+			"parameters": {
+				"density_offset": 0.65,
+				"density_scale": 1.7,
+				"ridge_scale": 0.6,
+				"continent_scale": 1.6,
+				"erosion_scale": 1.5,
+				"temperature_shift": 0.4,
+				"vegetation_shift": -0.35,
+				"sea_level_offset": 16
+			}
+		}
+	]
+}

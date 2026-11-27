@@ -1,0 +1,21 @@
+{
+	"schema_version": 1,
+	"dimension_type": "minecraft:overworld",
+	"generator": {
+		"kind": "stem",
+		"id": "minecraft:overworld"
+	},
+	"seed": {
+		"mode": "random"
+	},
+	"spawn": {
+		"mode": "search",
+		"radius": 32
+	},
+	"border": {
+		"center_x": 0.0,
+		"center_z": 0.0,
+		"initial_size": 512.0,
+		"warning_blocks": 16.0
+	}
+}

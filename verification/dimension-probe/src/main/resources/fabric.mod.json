@@ -1,0 +1,22 @@
+{
+	"schemaVersion": 1,
+	"id": "rogue-engine-probe",
+	"version": "${version}",
+	"name": "Rogue Engine Dimension Probe",
+	"description": "Read-write verification harness for runtime Minecraft 26.3 dimensions.",
+	"environment": "server",
+	"entrypoints": {
+		"main": [
+			"spectrum255.rogueengine.probe.DimensionProbe"
+		]
+	},
+	"mixins": [
+		"rogue-engine-probe.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

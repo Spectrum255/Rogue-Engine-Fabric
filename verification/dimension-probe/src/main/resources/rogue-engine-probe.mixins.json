@@ -1,0 +1,16 @@
+{
+	"required": true,
+	"package": "spectrum255.rogueengine.probe.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"MinecraftServerAccessor",
+		"MinecraftServerDimensionLifecycleMixin",
+		"ServerLevelSeedMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

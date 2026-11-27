@@ -1,0 +1,18 @@
+{
+	"schema_version": 1,
+	"entries": [
+		{"scene": "rogue-engine-fabric:example_room_snapshot", "weight": 1}
+	],
+	"default_range": {"scenes": [], "tags": []},
+	"repeat_policy": "allow",
+	"refresh": {
+		"triggers": ["manual", "on_empty"],
+		"player_reset": "none"
+	},
+	"budget": {
+		"max_chunks_per_tick": 4,
+		"max_tick_ms": 5,
+		"max_entities": 128,
+		"max_block_entities": 256
+	}
+}

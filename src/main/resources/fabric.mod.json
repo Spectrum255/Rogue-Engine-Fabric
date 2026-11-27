@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "rogue-engine-fabric",
+	"version": "${version}",
+	"name": "Rogue Engine Fabric",
+	"description": "数据包驱动的服务端动态箱庭维度引擎。",
+	"authors": [
+		"Spectrum_255"
+	],
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"spectrum255.rogueengine.RogueEngineFabric"
+		],
+		"modmenu": [
+			"spectrum255.rogueengine.client.RogueEngineModMenu"
+		]
+	},
+	"mixins": [
+		"rogue-engine-fabric.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": ">=0.167.0+26.3"
+	}
+}

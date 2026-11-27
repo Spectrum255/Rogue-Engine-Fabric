@@ -1,0 +1,49 @@
+# gradle
+
+.gradle/
+build/
+out/
+classes/
+
+# eclipse
+
+*.launch
+
+# idea
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# macos
+
+*.DS_Store
+
+# fabric
+
+run/
+logs/
+
+# local Minecraft server binaries and extracted libraries
+/server.jar
+/versions/
+/libraries/
+
+# logs
+
+*.log
+*.log.gz
+
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr

@@ -1,0 +1,32 @@
+{
+	"schema_version": 1,
+	"generator_kind": "central_island",
+	"base_stem": "minecraft:overworld",
+	"terrain_boundary": {
+		"center_x": 0.0,
+		"center_z": 0.0,
+		"radius_x": 128.0,
+		"radius_z": 128.0,
+		"shape": "circle",
+		"outside_mode": "void"
+	},
+	"island": {
+		"surface_mode": "custom_layers",
+		"center_y": 128,
+		"max_thickness": 64,
+		"bottom_taper": 1.5,
+		"surface_roughness": 4.0,
+		"edge_noise": 0.35,
+		"custom_layers": {
+			"top_block": {"id": "minecraft:grass_block"},
+			"soil_block": {"id": "minecraft:dirt"},
+			"rock_block": {"id": "minecraft:stone"},
+			"top_depth": 1,
+			"soil_depth": 3,
+			"ore_block": {"id": "minecraft:coal_ore"},
+			"ore_chance": 0.02,
+			"ore_min_depth": 4,
+			"ore_max_depth": 32
+		}
+	}
+}

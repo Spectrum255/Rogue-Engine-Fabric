@@ -1,0 +1,6 @@
+gradle.projectsEvaluated {
+    def project = gradle.rootProject
+    project.tasks.named('runServer') {
+        classpath += project.configurations.getByName('runtimeClasspath')
+    }
+}

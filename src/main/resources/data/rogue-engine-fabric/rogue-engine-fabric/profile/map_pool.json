@@ -1,0 +1,16 @@
+{
+	"schema_version": 2,
+	"dimension_type": "minecraft:overworld",
+	"generator": {
+		"kind": "template",
+		"id": "rogue-engine-fabric:map_pool"
+	},
+	"seed": {"mode": "random"},
+	"spawn": {"mode": "fixed", "x": 2.0, "y": 129.0, "z": 2.0, "yaw": 0.0},
+	"border": {
+		"center_x": 0.0,
+		"center_z": 0.0,
+		"initial_size": 64.0,
+		"warning_blocks": 8.0
+	}
+}

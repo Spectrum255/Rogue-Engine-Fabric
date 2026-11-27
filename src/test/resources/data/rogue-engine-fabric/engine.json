@@ -1,0 +1,13 @@
+{
+	"schema_version": 1,
+	"max_active_instances": 8,
+	"max_pending_operations": 16,
+	"preload_radius": 2,
+	"preload_chunks_per_tick": 2,
+	"preload_tick_budget_ms": 5,
+	"preload_timeout_seconds": 60,
+	"archive_min_tick_budget_ms": 20,
+	"destroy_confirmation_ttl_seconds": 30,
+	"quarantine_retention_days": 7,
+	"fallback_dimension": "minecraft:overworld"
+}

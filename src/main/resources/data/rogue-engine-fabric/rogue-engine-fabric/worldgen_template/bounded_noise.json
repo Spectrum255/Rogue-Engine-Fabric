@@ -1,0 +1,24 @@
+{
+	"schema_version": 1,
+	"generator_kind": "noise_chaos",
+	"base_stem": "minecraft:overworld",
+	"ranges": {
+		"density_offset": {"min": -0.1, "max": 0.1},
+		"density_scale": {"min": 0.9, "max": 1.1},
+		"ridge_scale": {"min": 0.9, "max": 1.1},
+		"continent_scale": {"min": 0.9, "max": 1.1},
+		"erosion_scale": {"min": 0.9, "max": 1.1},
+		"temperature_shift": {"min": -0.05, "max": 0.05},
+		"vegetation_shift": {"min": -0.05, "max": 0.05},
+		"sea_level_offset": {"min": -4, "max": 4}
+	},
+	"presets": [],
+	"terrain_boundary": {
+		"center_x": 0.0,
+		"center_z": 0.0,
+		"radius_x": 128.0,
+		"radius_z": 128.0,
+		"shape": "circle",
+		"outside_mode": "void"
+	}
+}
